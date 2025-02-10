@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple_500">#6200EE</color> <!-- hoặc mã màu khác nếu bạn muốn -->
+    <color name="selected_color">#FF6200EE</color>
+    <color name="unselected_color">#FFA0A0A0</color>
+    <color name="olive_green">#6B8E23</color>  <!-- Mã màu xanh rêu -->
+    <color name="blue">#2196F3</color> <!-- Màu Blue 500 trong Material Design -->
+</resources>

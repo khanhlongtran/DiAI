@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">DiAI </string>
+    <string-array name="diabetes_types">
+        <item>Type 1</item>
+        <item>Type 2</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Mảng cân nặng -->
+    <string-array name="weight_array">
+        <item>50kg</item>
+        <item>55kg</item>
+        <item>60kg</item>
+        <item>65kg</item>
+        <item>70kg</item>
+        <item>75kg</item>
+        <item>80kg</item>
+        <item>85kg</item>
+        <item>90kg</item>
+    </string-array>
+    <string-array name="sex_options">
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Mảng mục tiêu -->
+    <string-array name="goal_array">
+        <item>Giảm cân</item>
+        <item>Duy trì cân nặng</item>
+        <item>Tăng cường sức khỏe</item>
+        <item>Phục hồi sức khỏe</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="nh_p_th_ng_tin_c_nh_n">Nhập thông tin cá nhân</string>
+    <string name="create_account">Create account</string>
+    <string name="back">Back</string>
+    <string name="additional_info">Additional Information</string>
+    <string name="next">Next</string>
+    <string name="choosegoal">Chọn mục tiêu</string>
+    <string name="start">Start</string>
+    <string name="enter_your_personal_information">Enter your personal information</string>
+    <string name="edit_account">Edit account</string>
+    <string name="meal_detail">Meal detail</string>
+</resources>
