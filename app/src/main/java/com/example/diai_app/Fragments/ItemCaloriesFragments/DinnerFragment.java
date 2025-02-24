@@ -4,38 +4,47 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diai_app.Adapter.RecipeAdapter;
 import com.example.diai_app.DataModel.Recipe;
+import com.example.diai_app.Fragments.BaseFragment;
 import com.example.diai_app.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DinnerFragment extends Fragment {
+public class DinnerFragment extends BaseFragment {
+    private RecyclerView recyclerView;
+    private RecipeAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dinner, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_dinner;
+    }
 
-        RecyclerView recyclerView = view.findViewById(R.id.recipe_recycler_view);
+    @Override
+    protected void bindView(View view) {
+        recyclerView = view.findViewById(R.id.recipe_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<Recipe> dinnerRecipes = getDinnerRecipes(); // Implement this
-        RecipeAdapter adapter = new RecipeAdapter(getContext(), dinnerRecipes);
+        List<Recipe> dinnerRecipes = getDinnerRecipes();
+        adapter = new RecipeAdapter(getContext(), dinnerRecipes);
         recyclerView.setAdapter(adapter);
+    }
 
-        return view;
+    @Override
+    protected void addOnEventListener() {
+        // Hiện tại chưa có sự kiện nào cần lắng nghe, nếu có bạn có thể thêm vào đây
     }
 
     private List<Recipe> getDinnerRecipes() {
         List<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe("Green Salad", "20 min", "230", R.drawable.mot)); // Replace with your image resources
-        // Add more dinner recipes here
+        recipes.add(new Recipe("Green Salad", "20 min", "230", R.drawable.mot));
+        // Thêm các công thức món ăn khác ở đây
         return recipes;
     }
 }
