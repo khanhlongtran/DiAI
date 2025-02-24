@@ -1,5 +1,7 @@
 package com.example.diai_app.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.diai_app.DataModel.BloodSugarRecord;
+import com.example.diai_app.DataModel.User;
 import com.example.diai_app.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -28,6 +32,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +66,18 @@ public class HomeFragment extends Fragment {
         chartBloodSugar = view.findViewById(R.id.chart_blood_sugar);
         btnAddRecord = view.findViewById(R.id.btn_add_record);
         layoutPreviousRecords = view.findViewById(R.id.layout_previous_records);
+
+        // Lấy name từ SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userJson = sharedPreferences.getString("loggedInUser", null);
+        if (userJson != null) {
+            Gson gson = new Gson();
+            User loggedInUser = gson.fromJson(userJson, User.class);
+            Log.d("TAGTAGTAG", "username: " + loggedInUser.getName());
+            // Hiển thị lời chào
+            tvHello.setText("Hello, " + loggedInUser.getName() + "!");
+        }
+
         // Seed dữ liệu giả lập
         seedData();
         updateUI();
@@ -83,6 +100,7 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
+
     private void addNewRecord() {
         String bloodSugarText = etBloodSugar.getText().toString().trim();
         String notes = etNotes.getText().toString().trim();
@@ -116,6 +134,7 @@ public class HomeFragment extends Fragment {
         updateChart();
         updatePreviousRecords();
     }
+
     private void updatePreviousRecords() {
         layoutPreviousRecords.removeAllViews(); // Xóa danh sách cũ
 

@@ -10,12 +10,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.diai_app.DataModel.User;
 import com.example.diai_app.HomeActivity;
+import com.example.diai_app.Manager.UserManager;
 import com.example.diai_app.R;
 
 public class SignUpFragment3 extends Fragment {
@@ -59,22 +62,52 @@ public class SignUpFragment3 extends Fragment {
                 // Dữ liệu từ Fragment 1
                 String name = bundle.getString("name", "");
                 String email = bundle.getString("email", "");
-                String password = bundle.getString("password", ""); // Nếu có password
-                // Create User trước
+                String password = bundle.getString("password", "");
+
                 // Dữ liệu từ Fragment 2
                 String fullName = bundle.getString("fullName", "");
-                String age = bundle.getString("age", "");
-                String height = bundle.getString("height", "");
-                String sex = bundle.getString("sex", "");
-                String weight = bundle.getString("weight", "");
-                // Create Profile của User đo
 
-                // Chuyển tất cả dữ liệu sang HomeActivity
+                // Chuyển đổi thành số
+                int age = 0;
+                int height = 0;
+                double weight = 0.0;
+                try {
+                    age = Integer.parseInt(bundle.getString("age", "0"));
+                    height = Integer.parseInt(bundle.getString("height", "0"));
+                    weight = Double.parseDouble(bundle.getString("weight", "0.0"));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    Toast.makeText(requireContext(), "Invalid number format.", Toast.LENGTH_SHORT).show();
+                    return; // Ngừng tiến trình đăng ký nếu có lỗi chuyển đổi
+                }
+
+                String sex = bundle.getString("sex", "");
+
+                // Tạo User mới với các thông tin vừa lấy
+                User newUser = new User(
+                        name,
+                        password,
+                        email,
+                        sex,
+                        weight,
+                        fullName,
+                        age,
+                        height,
+                        diabetesType,
+                        additionInfo,
+                        hasFamilyHistory
+                );
+                // Thêm người dùng mới vào UserManager
+                UserManager.getInstance().addUser(newUser);
+                // Chuyển sang HomeActivity sau khi đăng ký thành công
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+            } else {
+                Toast.makeText(requireContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         return view;
 

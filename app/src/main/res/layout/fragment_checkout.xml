@@ -1,39 +1,172 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Shipping Address" />
+        <!-- Full Name -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            app:boxBackgroundMode="outline">
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        android:inputType="phone" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Payment Method: Cash on Delivery (COD)"
-        android:paddingTop="8dp"
-        android:textStyle="bold" />
+        <!-- Address -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Shipping Address"
+            app:boxBackgroundMode="outline"
+            android:layout_marginTop="8dp">
 
-    <Button
-        android:id="@+id/btnConfirmOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm Order"
-        android:layout_marginTop="16dp" />
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Phone -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            app:boxBackgroundMode="outline"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Payment Method -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment Method:"
+            android:paddingTop="16dp"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <!-- Payment Options -->
+        <RadioGroup
+            android:id="@+id/radioGroupPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp">
+
+            <!-- COD -->
+            <RadioButton
+                android:id="@+id/radioCOD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COD"
+                android:drawableLeft="@drawable/ic_cod"
+                android:drawablePadding="8dp" />
+
+            <!-- ZaloPay -->
+            <RadioButton
+                android:enabled="false"
+                android:id="@+id/radioZaloPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ZaloPay"
+                android:drawableLeft="@drawable/ic_zalopay"
+                android:drawablePadding="8dp" />
+
+            <!-- Momo -->
+            <RadioButton
+                android:enabled="false"
+                android:id="@+id/radioMomo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Momo"
+                android:drawableLeft="@drawable/ic_momo"
+                android:drawablePadding="8dp" />
+
+            <!-- VISA -->
+            <RadioButton
+                android:id="@+id/radioVISA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VISA"
+                android:drawableLeft="@drawable/ic_visa"
+                android:drawablePadding="8dp" />
+
+            <!-- Bank Transfer -->
+            <RadioButton
+                android:id="@+id/radioBank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngân hàng"
+                android:drawableLeft="@drawable/ic_bank"
+                android:drawablePadding="8dp" />
+        </RadioGroup>
+
+
+
+        <!-- LinearLayout chứa thông tin thẻ -->
+        <LinearLayout
+            android:id="@+id/paymentDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="16dp">
+
+            <EditText
+                android:id="@+id/editTextCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Card Number"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editTextCardName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cardholder Name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextExpiryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Expiry Date (MM/YY)"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextCVV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CVV"
+                android:inputType="numberPassword" />
+        </LinearLayout>
+
+
+        <!-- Confirm Button -->
+        <Button
+            android:id="@+id/btnConfirmOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Order"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/orange"
+            android:layout_marginTop="16dp"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</ScrollView>
