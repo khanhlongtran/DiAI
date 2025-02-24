@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,14 +17,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diai_app.Adapter.CartAdapter;
+import com.example.diai_app.DataModel.Product;
 import com.example.diai_app.Manager.CartManager;
 import com.example.diai_app.R;
+
+import java.util.Map;
 
 public class CartFragment extends Fragment {
 
     private RecyclerView cartRecyclerView;
     private Button btnCheckout;
     private CartAdapter cartAdapter;
+    private TextView tvTotalPrice;
 
     public CartFragment() {
         // Required empty public constructor
@@ -36,11 +41,11 @@ public class CartFragment extends Fragment {
 
         cartRecyclerView = view.findViewById(R.id.cartRecyclerView);
         btnCheckout = view.findViewById(R.id.btnCheckout);
-
+        tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cartAdapter = new CartAdapter(CartManager.getInstance().getCartItems());
         cartRecyclerView.setAdapter(cartAdapter);
-
+        updateTotalPrice(); // Cập nhật tổng tiền khi khởi tạo
         btnCheckout.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -50,5 +55,16 @@ public class CartFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // Phương thức tính và cập nhật tổng tiền
+    private void updateTotalPrice() {
+        double totalPrice = 0;
+        for (Map.Entry<Product, Integer> entry : CartManager.getInstance().getCartItems().entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+            totalPrice += product.getPrice() * quantity;
+        }
+        tvTotalPrice.setText("Total: $" + totalPrice);
     }
 }

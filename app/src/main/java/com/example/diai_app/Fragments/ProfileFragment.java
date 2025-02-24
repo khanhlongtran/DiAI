@@ -1,6 +1,9 @@
 package com.example.diai_app.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.diai_app.DataModel.User;
 import com.example.diai_app.R;
+import com.google.gson.Gson;
 
 public class ProfileFragment extends Fragment {
 
@@ -25,20 +30,65 @@ public class ProfileFragment extends Fragment {
     private CheckBox checkFamilyHistory;
     private Button btnUpdateProfile;
     private ImageView btnBack4;
+    User loggedInUser;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        // Ánh xạ view
         etFullName = view.findViewById(R.id.etFullName);
         etAge = view.findViewById(R.id.etAge);
         etWeight = view.findViewById(R.id.etWeight);
         etHeight = view.findViewById(R.id.etHeight);
         etAdditionInfo = view.findViewById(R.id.etAdditionInfo);
+        checkFamilyHistory = view.findViewById(R.id.checkFamilyHistory);
         spinnerSex = view.findViewById(R.id.spinnerSex);
         spinnerDiabetesType = view.findViewById(R.id.spinnerDiabetesType);
+        // Lấy name từ SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userJson = sharedPreferences.getString("loggedInUser", null);
+        if (userJson != null) {
+            Gson gson = new Gson();
+            loggedInUser = gson.fromJson(userJson, User.class);
+            Log.d("TAGTAGTAG", "ProfileFragment username: " + loggedInUser.getName());
+        }
+        // Điền dữ liệu vào các EditText
+        etFullName.setText(loggedInUser.getFullname());
+        etAge.setText(String.valueOf(loggedInUser.getAge()));
+        etWeight.setText(String.valueOf(loggedInUser.getWeight()));
+        etHeight.setText(String.valueOf(loggedInUser.getHeight()));
+        etAdditionInfo.setText(loggedInUser.getAdditionInfo());
+        checkFamilyHistory.setChecked(loggedInUser.isHasFamilyHistory()); // Thêm dòng này
+        // Điền dữ liệu vào Spinner Giới tính
+        if (loggedInUser.getSex() != null) {
+            switch (loggedInUser.getSex()) {
+                case "Male":
+                    spinnerSex.setSelection(0);
+                    break;
+                case "Female":
+                    spinnerSex.setSelection(1);
+                    break;
+                case "Other":
+                    spinnerSex.setSelection(2);
+                    break;
+            }
+        }
+
+        // Điền dữ liệu vào Spinner Loại tiểu đường
+        if (loggedInUser.getDiabetesType() != null) {
+            switch (loggedInUser.getDiabetesType()) {
+                case "Type 1":
+                    spinnerDiabetesType.setSelection(0);
+                    break;
+                case "Type 2":
+                    spinnerDiabetesType.setSelection(1);
+                    break;
+                case "Other":
+                    spinnerDiabetesType.setSelection(2);
+                    break;
+            }
+        }
+
         checkFamilyHistory = view.findViewById(R.id.checkFamilyHistory);
         btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
         btnBack4 = view.findViewById(R.id.btnBack4);
@@ -75,6 +125,7 @@ public class ProfileFragment extends Fragment {
         diabetesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDiabetesType.setAdapter(diabetesAdapter);
     }
+
     private void updateProfile() {
         String fullName = etFullName.getText().toString().trim();
         String age = etAge.getText().toString().trim();
@@ -90,7 +141,36 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        // Gửi dữ liệu cập nhật (giả lập)
-        Toast.makeText(requireContext(), "Hồ sơ đã được cập nhật!", Toast.LENGTH_SHORT).show();
+        // Lấy thông tin user từ SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userJson = sharedPreferences.getString("loggedInUser", null);
+
+        if (userJson != null) {
+            Gson gson = new Gson();
+            User loggedInUser = gson.fromJson(userJson, User.class);
+
+            // Cập nhật thông tin mới
+            loggedInUser.setFullname(fullName);
+            loggedInUser.setAge(Integer.parseInt(age));
+            loggedInUser.setWeight(Double.parseDouble(weight));
+            loggedInUser.setHeight(Double.parseDouble(height));
+            loggedInUser.setAdditionInfo(additionInfo);
+            loggedInUser.setSex(gender);
+            loggedInUser.setDiabetesType(diabetesType);
+            loggedInUser.setHasFamilyHistory(hasFamilyHistory);
+
+            // Chuyển đối tượng User thành chuỗi JSON
+            String updatedUserJson = gson.toJson(loggedInUser);
+
+            // Lưu lại vào SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("loggedInUser", updatedUserJson);
+            editor.apply();
+
+            Toast.makeText(requireContext(), "Hồ sơ đã được cập nhật!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), "Không thể cập nhật thông tin người dùng.", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

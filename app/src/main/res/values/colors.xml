@@ -7,4 +7,5 @@
     <color name="unselected_color">#FFA0A0A0</color>
     <color name="olive_green">#6B8E23</color>  <!-- Mã màu xanh rêu -->
     <color name="blue">#2196F3</color> <!-- Màu Blue 500 trong Material Design -->
+    <color name="orange">#FF7043</color> <!-- Màu Blue 500 trong Material Design -->
 </resources>

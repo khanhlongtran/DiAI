@@ -12,14 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.diai_app.DataModel.Product;
 import com.example.diai_app.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
-    private final List<Product> cartItems;
+    private final List<Product> productList;
+    private final Map<Product, Integer> cartItems;
 
-    public CartAdapter(List<Product> cartItems) {
+    // Constructor nhận vào Map<Product, Integer>
+    public CartAdapter(Map<Product, Integer> cartItems) {
         this.cartItems = cartItems;
+        this.productList = new ArrayList<>(cartItems.keySet()); // Chuyển thành List
     }
 
     @NonNull
@@ -31,10 +36,12 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = cartItems.get(position);
+        Product product = productList.get(position);
+        int quantity = cartItems.get(product);
         holder.productName.setText(product.getName());
         holder.productPrice.setText("$" + product.getPrice());
         holder.productImage.setImageResource(product.getImageResId());
+        holder.productQuantity.setText("Quantity: " + quantity);
     }
 
     @Override
@@ -43,7 +50,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productPrice;
+        TextView productName, productPrice, productQuantity;
         ImageView productImage;
 
         public ViewHolder(View itemView) {
@@ -51,6 +58,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
             productName = itemView.findViewById(R.id.cartProductName);
             productPrice = itemView.findViewById(R.id.cartProductPrice);
             productImage = itemView.findViewById(R.id.cartProductImage);
+            productQuantity = itemView.findViewById(R.id.cartProductQuantity);
         }
     }
 }
