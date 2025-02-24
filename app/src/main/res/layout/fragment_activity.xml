@@ -17,7 +17,7 @@
         android:id="@+id/btnSuggestExercises"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đề xuất bài tập bởi AI"
+        android:text="Exercise suggestions by AI"
         android:layout_marginTop="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

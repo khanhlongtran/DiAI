@@ -45,7 +45,5 @@ public class UserManager {
         }
         return null; // Trả về null nếu thông tin không chính xác
     }
-
-
 }
 

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:text="Đăng nhập"
+        android:text="Welcome back"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:hint="Mật khẩu"
+        android:hint="Password"
         android:inputType="textPassword"
         android:padding="12dp" />
 
@@ -47,7 +47,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/purple_500"
         android:padding="12dp"
-        android:text="Đăng nhập"
+        android:text="Continue"
         android:textColor="@android:color/white" />
 
     <!-- Nút chuyển sang Đăng ký nếu chưa có tài khoản -->
@@ -57,6 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Chưa có tài khoản? Đăng ký"
+        android:text="Don't have an account? Sign Up"
         android:textColor="@android:color/holo_blue_light" />
 </LinearLayout>

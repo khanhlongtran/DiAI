@@ -69,11 +69,11 @@ public class SignUpFragment3 extends Fragment {
 
                 // Chuyển đổi thành số
                 int age = 0;
-                int height = 0;
+                double height = 0;
                 double weight = 0.0;
                 try {
                     age = Integer.parseInt(bundle.getString("age", "0"));
-                    height = Integer.parseInt(bundle.getString("height", "0"));
+                    height = Double.parseDouble(bundle.getString("height", "0"));
                     weight = Double.parseDouble(bundle.getString("weight", "0.0"));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();

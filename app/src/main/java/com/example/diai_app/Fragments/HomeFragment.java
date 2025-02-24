@@ -121,9 +121,26 @@ public class HomeFragment extends Fragment {
     }
 
     private void seedData() {
-        bloodSugarRecords.add(new BloodSugarRecord(120, "Feb 5, 10:00 PM", "After dinner"));
-        bloodSugarRecords.add(new BloodSugarRecord(130, "Feb 4, 09:30 AM", "Morning test"));
+        // Lấy SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        boolean isSeeded = sharedPreferences.getBoolean("isDataSeeded", false);
+
+        // Kiểm tra nếu chưa seed thì tiến hành seed data
+        if (!isSeeded) {
+            bloodSugarRecords.add(new BloodSugarRecord(120, "Feb 5, 10:00 PM", "After dinner"));
+            bloodSugarRecords.add(new BloodSugarRecord(130, "Feb 4, 09:30 AM", "Morning test"));
+
+            // Đánh dấu là đã seed
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isDataSeeded", true);
+            editor.apply();
+
+            Log.d("TAGTAGTAG", "Seeding data...");
+        } else {
+            Log.d("TAGTAGTAG", "Data already seeded, skip seeding.");
+        }
     }
+
 
     private void updateUI() {
         if (!bloodSugarRecords.isEmpty()) {
