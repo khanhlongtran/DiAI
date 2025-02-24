@@ -224,14 +224,31 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Nút Cập nhật hồ sơ -->
-        <Button
-            android:id="@+id/btnUpdateProfile"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_500"
-            android:padding="12dp"
-            android:text="Update"
-            android:textColor="@android:color/white" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnUpdateProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_500"
+                android:padding="12dp"
+                android:text="Update"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red_500"
+                android:padding="12dp"
+                android:text="Logout"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

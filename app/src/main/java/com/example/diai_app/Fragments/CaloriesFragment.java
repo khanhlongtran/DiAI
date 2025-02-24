@@ -34,34 +34,30 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class CaloriesFragment extends Fragment {
+public class CaloriesFragment extends BaseFragment {
     private final OkHttpClient client = new OkHttpClient();
     private LinearLayout mealContainer;
     private Button btnGenerateMeals;
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calories, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_calories;
+    }
+
+    @Override
+    protected void bindView(View view) {
         mealContainer = view.findViewById(R.id.mealContainer);
-//        TextView viewAll = view.findViewById(R.id.view_all_calories);
-//        viewAll.setOnClickListener(v -> {
-//            // Navigate to the new fragment
-//            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-//            FragmentTransaction transaction = fragmentManager.beginTransaction();
-//            transaction.replace(R.id.fragment_container, new RecipesFragment()); // Replace with your fragment container ID
-//            transaction.addToBackStack(null); // Add to back stack for navigation
-//            transaction.commit();
-//        });
         btnGenerateMeals = view.findViewById(R.id.btn_generate_meals);
+    }
+
+    @Override
+    protected void addOnEventListener() {
         btnGenerateMeals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callAPI();
             }
         });
-        return view;
     }
 
     private void callAPI() {

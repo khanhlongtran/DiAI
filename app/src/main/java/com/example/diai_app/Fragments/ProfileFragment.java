@@ -1,6 +1,7 @@
 package com.example.diai_app.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,32 +21,60 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.diai_app.DataModel.User;
+import com.example.diai_app.LoginActivity;
 import com.example.diai_app.R;
 import com.google.gson.Gson;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
 
     private EditText etFullName, etAge, etWeight, etHeight, etAdditionInfo;
     private Spinner spinnerSex, spinnerDiabetesType;
     private CheckBox checkFamilyHistory;
-    private Button btnUpdateProfile;
+    private Button btnUpdateProfile, btnLogout;
     private ImageView btnBack4;
     User loggedInUser;
+    SharedPreferences sharedPreferences;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        etFullName = view.findViewById(R.id.etFullName);
-        etAge = view.findViewById(R.id.etAge);
-        etWeight = view.findViewById(R.id.etWeight);
-        etHeight = view.findViewById(R.id.etHeight);
-        etAdditionInfo = view.findViewById(R.id.etAdditionInfo);
-        checkFamilyHistory = view.findViewById(R.id.checkFamilyHistory);
-        spinnerSex = view.findViewById(R.id.spinnerSex);
-        spinnerDiabetesType = view.findViewById(R.id.spinnerDiabetesType);
+    protected int getLayoutId() {
+        return R.layout.fragment_profile;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        fillData();
+        setupSpinners();
+    }
+
+    @Override
+    protected void addOnEventListener() {
+        btnBack4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
+        // Xử lý sự kiện cập nhật hồ sơ
+        btnUpdateProfile.setOnClickListener(v -> updateProfile());
+        // Xử lý sự kiện Đăng xuất
+        btnLogout.setOnClickListener(v -> {
+            // Xóa dữ liệu trong SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("loggedInUser");
+            editor.remove("isLoggedIn");
+            editor.apply();
+
+            // Chuyển về LoginActivity
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+    }
+
+    private void fillData() {
         // Lấy name từ SharedPreferences
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String userJson = sharedPreferences.getString("loggedInUser", null);
         if (userJson != null) {
             Gson gson = new Gson();
@@ -88,23 +117,23 @@ public class ProfileFragment extends Fragment {
                     break;
             }
         }
+    }
 
+    @Override
+    protected void bindView(View view) {
+        etFullName = view.findViewById(R.id.etFullName);
+        etAge = view.findViewById(R.id.etAge);
+        etWeight = view.findViewById(R.id.etWeight);
+        etHeight = view.findViewById(R.id.etHeight);
+        etAdditionInfo = view.findViewById(R.id.etAdditionInfo);
         checkFamilyHistory = view.findViewById(R.id.checkFamilyHistory);
+        spinnerSex = view.findViewById(R.id.spinnerSex);
+        spinnerDiabetesType = view.findViewById(R.id.spinnerDiabetesType);
         btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
         btnBack4 = view.findViewById(R.id.btnBack4);
-        // Khởi tạo Spinner
-        setupSpinners();
-        btnBack4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requireActivity().onBackPressed();
-            }
-        });
-        // Xử lý sự kiện cập nhật hồ sơ
-        btnUpdateProfile.setOnClickListener(v -> updateProfile());
-
-        return view;
+        btnLogout = view.findViewById(R.id.btnLogout);
     }
+
 
     private void setupSpinners() {
         // Giới tính

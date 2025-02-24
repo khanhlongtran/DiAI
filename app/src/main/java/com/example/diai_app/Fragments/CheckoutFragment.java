@@ -24,22 +24,20 @@ import com.example.diai_app.R;
 
 import java.util.Calendar;
 
-public class CheckoutFragment extends Fragment {
+public class CheckoutFragment extends BaseFragment {
 
     private EditText editTextName, editTextAddress, editTextPhone;
     private Button btnConfirmOrder;
-    RadioGroup radioGroupPayment;
+    private RadioGroup radioGroupPayment;
     private LinearLayout paymentDetailsLayout;
     private EditText editTextCardNumber, editTextCardName, editTextExpiryDate, editTextCVV;
+
     public CheckoutFragment() {
         // Required empty public constructor
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_checkout, container, false);
-
+    protected void bindView(View view) {
         editTextName = view.findViewById(R.id.editTextName);
         editTextAddress = view.findViewById(R.id.editTextAddress);
         editTextPhone = view.findViewById(R.id.editTextPhone);
@@ -65,6 +63,10 @@ public class CheckoutFragment extends Fragment {
         radioVISA.setCompoundDrawablesWithIntrinsicBounds(resizeDrawable(R.drawable.ic_visa, iconSize, iconSize), null, null, null);
         radioBank.setCompoundDrawablesWithIntrinsicBounds(resizeDrawable(R.drawable.ic_bank, iconSize, iconSize), null, null, null);
 
+    }
+
+    @Override
+    protected void addOnEventListener() {
         btnConfirmOrder.setOnClickListener(v -> {
             String name = editTextName.getText().toString().trim();
             String address = editTextAddress.getText().toString().trim();
@@ -182,8 +184,11 @@ public class CheckoutFragment extends Fragment {
                 btnConfirmOrder.setTag(paymentMethod);
             }
         });
+    }
 
-        return view;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_checkout;
     }
 
     private Drawable resizeDrawable(int resId, int width, int height) {

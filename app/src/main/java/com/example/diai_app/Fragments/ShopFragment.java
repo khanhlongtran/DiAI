@@ -2,6 +2,8 @@ package com.example.diai_app.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,8 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// androidx.appcompat.widget.SearchView
-public class ShopFragment extends Fragment {
+public class ShopFragment extends BaseFragment {
     private androidx.appcompat.widget.SearchView searchView;
     private ImageView cartIcon;
     private RecyclerView categoryRecyclerView, productRecyclerView;
@@ -33,19 +34,79 @@ public class ShopFragment extends Fragment {
     private ProductAdapter productAdapter;
     private List<Category> categoryList;
     private List<Product> productList;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shop, container, false);
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_shop;
+    }
+
+    @Override
+    protected void addOnEventListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterProducts(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterProducts(newText);
+                return true;
+            }
+        });
+
+        // **Sự kiện click cho cartIcon**
+        cartIcon.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, new CartFragment());
+            transaction.addToBackStack(null); // Cho phép quay lại ShopFragment
+            transaction.commit();
+        });
+    }
+
+    @Override
+    protected void bindView(View view) {
         searchView = view.findViewById(R.id.searchView);
         cartIcon = view.findViewById(R.id.cartIcon);
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         categoryRecyclerView.setLayoutManager(layoutManager);
         productRecyclerView = view.findViewById(R.id.productRecyclerView);
+        seedData();
+        setUpAdapterForRecyclerView();
+    }
 
-        // Dữ liệu mẫu (Danh mục sản phẩm)
+    private void filterProducts(String query) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+        productAdapter.updateList(filteredList);
+    }
+
+    private void setUpAdapterForRecyclerView() {
+        // Set Adapter cho Category
+        categoryAdapter = new CategoryAdapter(categoryList);
+        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        categoryRecyclerView.setAdapter(categoryAdapter);
+
+        // Set Adapter cho Product
+        productAdapter = new ProductAdapter(requireContext(), productList);
+        productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        productRecyclerView.setAdapter(productAdapter);
+
+    }
+
+    private void seedData() {
         categoryList = Arrays.asList(
                 new Category(1, "Thực phẩm chức năng"),
                 new Category(2, "Vitamin & Khoáng chất"),
@@ -88,48 +149,5 @@ public class ShopFragment extends Fragment {
                 new Product(20, "Thanh Năng Lượng Protein Bar", "Thực phẩm bổ sung năng lượng", 150, R.drawable.proteinbar)
         );
 
-
-        // Set Adapter cho Category
-        categoryAdapter = new CategoryAdapter(categoryList);
-        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        categoryRecyclerView.setAdapter(categoryAdapter);
-
-        // Set Adapter cho Product
-        productAdapter = new ProductAdapter(requireContext(), productList);
-        productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        productRecyclerView.setAdapter(productAdapter);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filterProducts(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterProducts(newText);
-                return true;
-            }
-        });
-
-        // **Sự kiện click cho cartIcon**
-        cartIcon.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment_container, new CartFragment());
-            transaction.addToBackStack(null); // Cho phép quay lại ShopFragment
-            transaction.commit();
-        });
-        return view;
-    }
-    private void filterProducts(String query) {
-        List<Product> filteredList = new ArrayList<>();
-        for (Product product : productList) {
-            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(product);
-            }
-        }
-        productAdapter.updateList(filteredList);
     }
 }

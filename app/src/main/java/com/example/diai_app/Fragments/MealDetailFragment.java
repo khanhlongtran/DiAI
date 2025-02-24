@@ -22,23 +22,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MealDetailFragment extends Fragment {
+public class MealDetailFragment extends BaseFragment {
     private LinearLayout mealDetailContainer;
     private ImageView btnBack5;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_meal_detail, container, false);
-        mealDetailContainer = view.findViewById(R.id.mealDetailContainer);
-        btnBack5 = view.findViewById(R.id.btnBack5);
-
-        btnBack5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requireActivity().onBackPressed();
-            }
-        });
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         // Lấy dữ liệu từ Bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -50,7 +40,27 @@ public class MealDetailFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        return view;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_meal_detail;
+    }
+
+    @Override
+    protected void bindView(View view) {
+        mealDetailContainer = view.findViewById(R.id.mealDetailContainer);
+        btnBack5 = view.findViewById(R.id.btnBack5);
+    }
+
+    @Override
+    protected void addOnEventListener() {
+        btnBack5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
     }
 
     private void displayMealDetails(JSONObject meal) {
