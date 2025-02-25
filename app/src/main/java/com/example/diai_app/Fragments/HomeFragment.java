@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
     private TextView tvLatestBloodSugar, tvLatestBloodSugarTime, tvHello;
     private EditText etBloodSugar, etNotes;
     private ImageView ivProfile;
@@ -49,24 +49,9 @@ public class HomeFragment extends Fragment {
     private LinearLayout layoutPreviousRecords;
     private List<BloodSugarRecord> bloodSugarRecords = new ArrayList<>();
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        // Ánh xạ các view bằng findViewById
-        tvLatestBloodSugar = view.findViewById(R.id.tv_latest_blood_sugar);
-        tvLatestBloodSugarTime = view.findViewById(R.id.tv_latest_blood_sugar_time);
-        tvHello = view.findViewById(R.id.tvHello);
-        ivProfile = view.findViewById(R.id.ivProfile);
-        etBloodSugar = view.findViewById(R.id.et_blood_sugar);
-        etNotes = view.findViewById(R.id.et_notes);
-        chartBloodSugar = view.findViewById(R.id.chart_blood_sugar);
-        btnAddRecord = view.findViewById(R.id.btn_add_record);
-        layoutPreviousRecords = view.findViewById(R.id.layout_previous_records);
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         // Lấy name từ SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String userJson = sharedPreferences.getString("loggedInUser", null);
@@ -77,11 +62,31 @@ public class HomeFragment extends Fragment {
             // Hiển thị lời chào
             tvHello.setText("Hello, " + loggedInUser.getName() + "!");
         }
-
-        // Seed dữ liệu giả lập
         seedData();
         updateUI();
-        // Xử lý sự kiện cho nút "Add New Record"
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void bindView(View view) {
+        // Ánh xạ các view bằng findViewById
+        tvLatestBloodSugar = view.findViewById(R.id.tv_latest_blood_sugar);
+        tvLatestBloodSugarTime = view.findViewById(R.id.tv_latest_blood_sugar_time);
+        tvHello = view.findViewById(R.id.tvHello);
+        ivProfile = view.findViewById(R.id.ivProfile);
+        etBloodSugar = view.findViewById(R.id.et_blood_sugar);
+        etNotes = view.findViewById(R.id.et_notes);
+        chartBloodSugar = view.findViewById(R.id.chart_blood_sugar);
+        btnAddRecord = view.findViewById(R.id.btn_add_record);
+        layoutPreviousRecords = view.findViewById(R.id.layout_previous_records);
+    }
+
+    @Override
+    protected void addOnEventListener() {
         btnAddRecord.setOnClickListener(v -> {
             addNewRecord();
             Toast.makeText(getContext(), "Add New Record Clicked", Toast.LENGTH_SHORT).show();
@@ -98,7 +103,6 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        return view;
     }
 
     private void addNewRecord() {
@@ -121,9 +125,26 @@ public class HomeFragment extends Fragment {
     }
 
     private void seedData() {
-        bloodSugarRecords.add(new BloodSugarRecord(120, "Feb 5, 10:00 PM", "After dinner"));
-        bloodSugarRecords.add(new BloodSugarRecord(130, "Feb 4, 09:30 AM", "Morning test"));
+        // Lấy SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        boolean isSeeded = sharedPreferences.getBoolean("isDataSeeded", false);
+
+        // Kiểm tra nếu chưa seed thì tiến hành seed data
+        if (!isSeeded) {
+            bloodSugarRecords.add(new BloodSugarRecord(120, "Feb 5, 10:00 PM", "After dinner"));
+            bloodSugarRecords.add(new BloodSugarRecord(130, "Feb 4, 09:30 AM", "Morning test"));
+
+            // Đánh dấu là đã seed
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isDataSeeded", true);
+            editor.apply();
+
+            Log.d("TAGTAGTAG", "Seeding data...");
+        } else {
+            Log.d("TAGTAGTAG", "Data already seeded, skip seeding.");
+        }
     }
+
 
     private void updateUI() {
         if (!bloodSugarRecords.isEmpty()) {

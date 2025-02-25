@@ -33,22 +33,37 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ChatBotFragment extends Fragment {
+public class ChatBotFragment extends BaseFragment {
     private RecyclerView recyclerView;
     private TextView welcomeTextView;
     private EditText messageEditText;
     private ImageButton sendButton;
     private List<Message> messageList;
     private MessageAdapter messageAdapter;
-    private OkHttpClient client;
+    private OkHttpClient client = new OkHttpClient();
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chatbot, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_chatbot;
+    }
 
+    @Override
+    protected void addOnEventListener() {
+        sendButton.setOnClickListener(v -> {
+            String question = messageEditText.getText().toString().trim();
+            if (!question.isEmpty()) {
+                addToChat(question, Message.SENT_BY_ME);
+                messageEditText.setText("");
+                callAPI(question);
+                welcomeTextView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Override
+    protected void bindView(View view) {
         // Khởi tạo UI components
         recyclerView = view.findViewById(R.id.recycler_view);
         welcomeTextView = view.findViewById(R.id.welcome_text);
@@ -62,20 +77,6 @@ public class ChatBotFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(requireContext());
         llm.setStackFromEnd(true);
         recyclerView.setLayoutManager(llm);
-
-        client = new OkHttpClient();
-        // Xử lý sự kiện khi nhấn nút gửi tin nhắn
-        sendButton.setOnClickListener(v -> {
-            String question = messageEditText.getText().toString().trim();
-            if (!question.isEmpty()) {
-                addToChat(question, Message.SENT_BY_ME);
-                messageEditText.setText("");
-                callAPI(question);
-                welcomeTextView.setVisibility(View.GONE);
-            }
-        });
-
-        return view;
     }
 
     private void addToChat(String message, String sentBy) {
@@ -85,6 +86,7 @@ public class ChatBotFragment extends Fragment {
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
         });
     }
+
     private void addResponse(String response) {
         messageList.remove(messageList.size() - 1);
         addToChat(response, Message.SENT_BY_BOT);

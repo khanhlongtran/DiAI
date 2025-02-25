@@ -1,7 +1,9 @@
 package com.example.diai_app.Fragments.SignUpFragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,42 +19,53 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.diai_app.DataModel.User;
+import com.example.diai_app.Fragments.BaseFragment;
 import com.example.diai_app.HomeActivity;
 import com.example.diai_app.Manager.UserManager;
 import com.example.diai_app.R;
+import com.google.gson.Gson;
 
-public class SignUpFragment3 extends Fragment {
+public class SignUpFragment3 extends BaseFragment {
     private Spinner spinnerDiabetesType, spinnerAdditionInfo;
     private CheckBox checkFamilyHistory;
     private Button btnStart;
     private ImageView btnBack;
+
     public SignUpFragment3() {
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_signup3, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Gán danh sách loại tiểu đường vào Spinner
+        ArrayAdapter<CharSequence> diabetesAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.diabetes_types, android.R.layout.simple_spinner_item);
+        diabetesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDiabetesType.setAdapter(diabetesAdapter);
 
+        // Gán danh sách mục tiêu (Additional Info) vào Spinner
+        ArrayAdapter<CharSequence> additionInfoAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.goal_array, android.R.layout.simple_spinner_item);
+        additionInfoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdditionInfo.setAdapter(additionInfoAdapter);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_signup3;
+    }
+
+    @Override
+    protected void bindView(View view) {
         spinnerDiabetesType = view.findViewById(R.id.spinnerDiabetesType);
         spinnerAdditionInfo = view.findViewById(R.id.spinnerAdditionInfo);
         checkFamilyHistory = view.findViewById(R.id.checkFamilyHistory);
         btnStart = view.findViewById(R.id.btnStart);
         btnBack = view.findViewById(R.id.btnBack3);
+    }
+
+    @Override
+    protected void addOnEventListener() {
         // Xử lý nút Back
         btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
-        // Gán danh sách loại tiểu đường vào Spinner
-        ArrayAdapter<CharSequence> diabetesAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.diabetes_types, android.R.layout.simple_spinner_item);
-        diabetesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDiabetesType.setAdapter(diabetesAdapter);
-
-        // Gán danh sách mục tiêu (Additional Info) vào Spinner
-        ArrayAdapter<CharSequence> additionInfoAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.goal_array, android.R.layout.simple_spinner_item);
-        additionInfoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAdditionInfo.setAdapter(additionInfoAdapter);
-
         btnStart.setOnClickListener(v -> {
             String diabetesType = spinnerDiabetesType.getSelectedItem().toString();
             boolean hasFamilyHistory = checkFamilyHistory.isChecked();
@@ -69,36 +82,37 @@ public class SignUpFragment3 extends Fragment {
 
                 // Chuyển đổi thành số
                 int age = 0;
-                int height = 0;
+                double height = 0;
                 double weight = 0.0;
                 try {
                     age = Integer.parseInt(bundle.getString("age", "0"));
-                    height = Integer.parseInt(bundle.getString("height", "0"));
-                    weight = Double.parseDouble(bundle.getString("weight", "0.0"));
+                    height = Double.parseDouble(bundle.getString("height", "0.0"));
+                    weight = Double.parseDouble(bundle.getString("weight", "0.0").replace("kg", "").trim());
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                     Toast.makeText(requireContext(), "Invalid number format.", Toast.LENGTH_SHORT).show();
+                    Log.d(SignUpFragment3.class.getName(), "NumberFormatException: " + e.toString());
                     return; // Ngừng tiến trình đăng ký nếu có lỗi chuyển đổi
                 }
 
                 String sex = bundle.getString("sex", "");
 
                 // Tạo User mới với các thông tin vừa lấy
-                User newUser = new User(
-                        name,
-                        password,
-                        email,
-                        sex,
-                        weight,
-                        fullName,
-                        age,
-                        height,
-                        diabetesType,
-                        additionInfo,
-                        hasFamilyHistory
-                );
+                User newUser = new User(name, password, email, sex, weight, fullName, age, height, diabetesType, additionInfo, hasFamilyHistory);
                 // Thêm người dùng mới vào UserManager
                 UserManager.getInstance().addUser(newUser);
+
+                // Chuyển đổi thông tin người dùng thành chuỗi JSON
+                Gson gson = new Gson();
+                String userJson = gson.toJson(newUser);
+
+                // Lưu thông tin người dùng vào SharedPreferences
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("loggedInUser", userJson);
+                editor.putBoolean("isLoggedIn", true); // Đánh dấu là đã đăng nhập
+                editor.apply();
+
                 // Chuyển sang HomeActivity sau khi đăng ký thành công
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -107,9 +121,5 @@ public class SignUpFragment3 extends Fragment {
                 Toast.makeText(requireContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        return view;
-
     }
 }

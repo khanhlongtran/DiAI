@@ -18,19 +18,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hi, Khanh!"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/current_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Today, 4 Aug"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <ImageView
@@ -145,7 +137,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Đề xuất bởi AI"
+        android:text="Suggested by AI"
         android:background="@color/blue"
         android:textColor="@color/white"
         android:textSize="16sp" />

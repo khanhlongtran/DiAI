@@ -3,6 +3,7 @@ package com.example.diai_app.Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ActivityFragment extends Fragment {
+public class ActivityFragment extends BaseFragment {
     private final OkHttpClient client = new OkHttpClient();
     private RecyclerView recyclerView;
     private ExerciseAdapter adapter;
@@ -45,20 +46,31 @@ public class ActivityFragment extends Fragment {
     private androidx.appcompat.widget.SearchView searchView;
     private List<Exercise> exerciseList;
     private List<Exercise> filteredList;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_activity, container, false);
-        btnSuggestExercises = view.findViewById(R.id.btnSuggestExercises);
-        searchView = view.findViewById(R.id.searchView);
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Dữ liệu danh sách bài tập
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         exerciseList = new ArrayList<>();
         filteredList = new ArrayList<>(exerciseList);
         adapter = new ExerciseAdapter(filteredList);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_activity;
+    }
+
+    @Override
+    protected void bindView(View view) {
+        btnSuggestExercises = view.findViewById(R.id.btnSuggestExercises);
+        searchView = view.findViewById(R.id.searchView);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    @Override
+    protected void addOnEventListener() {
         btnSuggestExercises.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +90,6 @@ public class ActivityFragment extends Fragment {
                 return true;
             }
         });
-        return view;
     }
 
     private void filterExercises(String query) {

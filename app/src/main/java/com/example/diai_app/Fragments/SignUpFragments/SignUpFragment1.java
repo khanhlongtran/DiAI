@@ -12,25 +12,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.diai_app.Fragments.BaseFragment;
 import com.example.diai_app.R;
 
-public class SignUpFragment1 extends Fragment {
+public class SignUpFragment1 extends BaseFragment {
     private EditText etName, etEmail, etPassword;
     private Button btnNext;
     private ImageView btnBack;
+
     public SignUpFragment1() {
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_signup1, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_signup1;
+    }
 
+    @Override
+    protected void bindView(View view) {
         etName = view.findViewById(R.id.etUsernameRegister);
         etPassword = view.findViewById(R.id.etPasswordRegister);
         etEmail = view.findViewById(R.id.etEmailRegister);
         btnNext = view.findViewById(R.id.btnNext);
         btnBack = view.findViewById(R.id.btnBack1);
+    }
+
+    @Override
+    protected void addOnEventListener() {
         // Xử lý sự kiện nhấn nút Back
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +66,5 @@ public class SignUpFragment1 extends Fragment {
                     .commit();
         });
 
-        return view;
     }
 }

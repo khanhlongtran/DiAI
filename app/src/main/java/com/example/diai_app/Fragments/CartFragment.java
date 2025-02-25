@@ -23,7 +23,7 @@ import com.example.diai_app.R;
 
 import java.util.Map;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends BaseFragment {
 
     private RecyclerView cartRecyclerView;
     private Button btnCheckout;
@@ -34,18 +34,29 @@ public class CartFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
-
-        cartRecyclerView = view.findViewById(R.id.cartRecyclerView);
-        btnCheckout = view.findViewById(R.id.btnCheckout);
-        tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cartAdapter = new CartAdapter(CartManager.getInstance().getCartItems());
         cartRecyclerView.setAdapter(cartAdapter);
-        updateTotalPrice(); // Cập nhật tổng tiền khi khởi tạo
+        updateTotalPrice();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_cart;
+    }
+
+    @Override
+    protected void bindView(View view) {
+        cartRecyclerView = view.findViewById(R.id.cartRecyclerView);
+        btnCheckout = view.findViewById(R.id.btnCheckout);
+        tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
+    }
+
+    @Override
+    protected void addOnEventListener() {
         btnCheckout.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -53,8 +64,6 @@ public class CartFragment extends Fragment {
             transaction.addToBackStack(null); // Cho phép quay lại CartFragment
             transaction.commit();
         });
-
-        return view;
     }
 
     // Phương thức tính và cập nhật tổng tiền

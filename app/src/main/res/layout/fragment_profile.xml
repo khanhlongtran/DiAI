@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:paddingBottom="16dp"
-            android:layout_marginBottom="10dp">
+            android:paddingBottom="16dp">
 
             <!-- Nút Back (ImageView) -->
             <ImageView
@@ -34,11 +34,11 @@
                 android:id="@+id/tvCreateAccount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/edit_account"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:paddingEnd="40dp"
+                android:text="@string/edit_account"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -49,12 +49,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hồ sơ cá nhân"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:text="Personal profile"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <!-- CardView chứa thông tin -->
         <androidx.cardview.widget.CardView
@@ -72,158 +72,183 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Họ và tên"
+                    android:layout_marginTop="8dp"
+                    android:text="Full name"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/etFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="12dp"
-                    android:textSize="16sp"
                     android:layout_marginBottom="8dp"
-                    android:hint="Nhập họ và tên"/>
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter your first and last name"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
                 <!-- Tuổi -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tuổi"
+                    android:layout_marginTop="8dp"
+                    android:text="Age"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/etAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="12dp"
-                    android:textSize="16sp"
                     android:layout_marginBottom="8dp"
-                    android:hint="Nhập tuổi"
-                    android:inputType="number"/>
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter age"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
                 <!-- Giới tính -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Giới tính"
+                    android:layout_marginTop="8dp"
+                    android:text="Sex"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <Spinner
                     android:id="@+id/spinnerSex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"/>
+                    android:background="@android:drawable/editbox_background" />
 
                 <!-- Cân nặng -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cân nặng (kg)"
+                    android:layout_marginTop="8dp"
+                    android:text="Weight (kg)"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/etWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="12dp"
-                    android:textSize="16sp"
                     android:layout_marginBottom="8dp"
-                    android:hint="Nhập cân nặng"
-                    android:inputType="numberDecimal"/>
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter weight"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
                 <!-- Chiều cao -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Chiều cao (cm)"
+                    android:layout_marginTop="8dp"
+                    android:text="Height (cm)"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/etHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="12dp"
-                    android:textSize="16sp"
                     android:layout_marginBottom="8dp"
-                    android:hint="Nhập chiều cao"
-                    android:inputType="numberDecimal"/>
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter height"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
                 <!-- Loại tiểu đường -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Loại tiểu đường"
+                    android:layout_marginTop="8dp"
+                    android:text="Type of diabetes"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <Spinner
                     android:id="@+id/spinnerDiabetesType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"/>
+                    android:background="@android:drawable/editbox_background" />
 
                 <!-- Tiền sử gia đình -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tiền sử gia đình"
+                    android:layout_marginTop="8dp"
+                    android:text="Family history"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <CheckBox
                     android:id="@+id/checkFamilyHistory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Có tiền sử gia đình"/>
+                    android:text="Have a family history" />
 
                 <!-- Thông tin thêm -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Thông tin thêm"
+                    android:layout_marginTop="8dp"
+                    android:text="More information"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/etAdditionInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="12dp"
-                    android:textSize="16sp"
                     android:layout_marginBottom="8dp"
-                    android:hint="Nhập thông tin thêm"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter additional information"
                     android:inputType="textMultiLine"
-                    android:minLines="2"/>
+                    android:minLines="2"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Nút Cập nhật hồ sơ -->
-        <Button
-            android:id="@+id/btnUpdateProfile"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cập nhật hồ sơ"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/purple_500"
-            android:padding="12dp"/>
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnUpdateProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_500"
+                android:padding="12dp"
+                android:text="Update"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red_500"
+                android:padding="12dp"
+                android:text="Logout"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

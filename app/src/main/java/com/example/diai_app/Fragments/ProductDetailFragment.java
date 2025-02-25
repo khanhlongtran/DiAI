@@ -17,7 +17,7 @@ import com.example.diai_app.DataModel.Product;
 import com.example.diai_app.Manager.CartManager;
 import com.example.diai_app.R;
 
-public class ProductDetailFragment extends Fragment {
+public class ProductDetailFragment extends BaseFragment {
 
     private TextView detailProductName, detailProductPrice, detailProductDescription;
     private ImageView detailProductImage;
@@ -28,8 +28,8 @@ public class ProductDetailFragment extends Fragment {
     int quantity = 1;
     private double totalPrice;
 
+    // Required empty public constructor
     public ProductDetailFragment() {
-        // Required empty public constructor
     }
 
     public static ProductDetailFragment newInstance(Product product) {
@@ -48,22 +48,26 @@ public class ProductDetailFragment extends Fragment {
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product_detail, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Hiển thị thông tin sản phẩm
+        if (product != null) {
+            detailProductName.setText(product.getName());
+            totalPrice = product.getPrice(); // Lấy giá gốc
+            updateTotalPrice(); // Cập nhật giá ban đầu
+            detailProductDescription.setText(product.getName() + " description");
+            detailProductImage.setImageResource(product.getImageResId()); // Giả sử dùng resource ID
+        }
+    }
 
-        detailProductName = view.findViewById(R.id.detailProductName);
-        detailProductPrice = view.findViewById(R.id.detailProductPrice);
-        detailProductDescription = view.findViewById(R.id.detailProductDescription);
-        detailProductImage = view.findViewById(R.id.detailProductImage);
-        btnAddToCart = view.findViewById(R.id.btnAddToCart);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_product_detail;
+    }
 
-        // Ánh xạ view
-        btnIncrease = view.findViewById(R.id.btnIncrease);
-        btnDecrease = view.findViewById(R.id.btnDecrease);
-        txtQuantity = view.findViewById(R.id.txtQuantity);
-
+    @Override
+    protected void addOnEventListener() {
         // Xử lý khi bấm nút tăng
         btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,25 +89,24 @@ public class ProductDetailFragment extends Fragment {
                 }
             }
         });
-
-        // Hiển thị thông tin sản phẩm
-        if (product != null) {
-            detailProductName.setText(product.getName());
-            totalPrice = product.getPrice(); // Lấy giá gốc
-            updateTotalPrice(); // Cập nhật giá ban đầu
-            detailProductDescription.setText(product.getName() + " description");
-            detailProductImage.setImageResource(product.getImageResId()); // Giả sử dùng resource ID
-        }
-
         btnAddToCart.setOnClickListener(v -> {
             if (product != null) {
                 CartManager.getInstance().addToCart(product, quantity);
                 Toast.makeText(getActivity(), product.getName() + " added to cart!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        return view;
-
+    @Override
+    protected void bindView(View view) {
+        detailProductName = view.findViewById(R.id.detailProductName);
+        detailProductPrice = view.findViewById(R.id.detailProductPrice);
+        detailProductDescription = view.findViewById(R.id.detailProductDescription);
+        detailProductImage = view.findViewById(R.id.detailProductImage);
+        btnAddToCart = view.findViewById(R.id.btnAddToCart);
+        btnIncrease = view.findViewById(R.id.btnIncrease);
+        btnDecrease = view.findViewById(R.id.btnDecrease);
+        txtQuantity = view.findViewById(R.id.txtQuantity);
     }
 
     // Hàm tính và cập nhật lại tổng giá
