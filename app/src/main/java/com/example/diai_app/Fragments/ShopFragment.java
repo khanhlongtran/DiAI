@@ -5,21 +5,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.diai_app.Adapter.CategoryAdapter;
 import com.example.diai_app.Adapter.ProductAdapter;
 import com.example.diai_app.DataModel.Category;
 import com.example.diai_app.DataModel.Product;
+import com.example.diai_app.Manager.CartManager;
 import com.example.diai_app.R;
 
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ public class ShopFragment extends BaseFragment {
     private ProductAdapter productAdapter;
     private List<Category> categoryList;
     private List<Product> productList;
+    private TextView cartBadge, bestSellerTv, newArrivalTv;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -60,7 +60,8 @@ public class ShopFragment extends BaseFragment {
                 return true;
             }
         });
-
+        bestSellerTv.setOnClickListener(v -> listBestSeller());
+        newArrivalTv.setOnClickListener(v -> listNewArrival());
         // **Sự kiện click cho cartIcon**
         cartIcon.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -71,16 +72,39 @@ public class ShopFragment extends BaseFragment {
         });
     }
 
+    private void listNewArrival() {
+        filterProducts("a");
+    }
+
+    private void listBestSeller() {
+        filterProducts("b");
+    }
+
     @Override
     protected void bindView(View view) {
         searchView = view.findViewById(R.id.searchView);
         cartIcon = view.findViewById(R.id.cartIcon);
+        cartBadge = view.findViewById(R.id.cartBadge);
+        bestSellerTv = view.findViewById(R.id.tv_best_seller);
+        newArrivalTv = view.findViewById(R.id.tv_new_arrival);
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         categoryRecyclerView.setLayoutManager(layoutManager);
         productRecyclerView = view.findViewById(R.id.productRecyclerView);
         seedData();
         setUpAdapterForRecyclerView();
+        // Cập nhật số lượng sản phẩm trong giỏ
+        updateCartBadge();
+    }
+
+    private void updateCartBadge() {
+        int cartSize = CartManager.getInstance().getTotalQuantity(); // Lấy số lượng sản phẩm trong giỏ
+        if (cartSize > 0) {
+            cartBadge.setText(String.valueOf(cartSize));
+            cartBadge.setVisibility(View.VISIBLE);
+        } else {
+            cartBadge.setVisibility(View.GONE);
+        }
     }
 
     private void filterProducts(String query) {

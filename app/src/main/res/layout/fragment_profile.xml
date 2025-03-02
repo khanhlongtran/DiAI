@@ -20,22 +20,21 @@
             android:orientation="horizontal"
             android:paddingBottom="16dp">
 
-            <!-- Nút Back (ImageView) -->
+            <!-- Nút Quay lại (ImageView) -->
             <ImageView
                 android:id="@+id/btnBack4"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:contentDescription="Back"
+                android:contentDescription="Quay lại"
                 android:paddingRight="20dp"
                 android:src="@drawable/ic_navigation_back_arrow" />
 
             <!-- Tiêu đề -->
             <TextView
                 android:id="@+id/tvCreateAccount"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingEnd="40dp"
                 android:text="@string/edit_account"
@@ -51,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="Personal profile"
+            android:text="Hồ sơ cá nhân"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -68,12 +67,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Họ và tên -->
+                <!-- Họ và Tên -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Full name"
+                    android:text="Họ và tên"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -84,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:background="@android:drawable/editbox_background"
-                    android:hint="Enter your first and last name"
+                    android:hint="Nhập họ và tên của bạn"
                     android:padding="12dp"
                     android:textSize="16sp" />
 
@@ -93,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Age"
+                    android:text="Tuổi"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -104,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:background="@android:drawable/editbox_background"
-                    android:hint="Enter age"
+                    android:hint="Nhập tuổi"
                     android:inputType="number"
                     android:padding="12dp"
                     android:textSize="16sp" />
@@ -114,7 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Sex"
+                    android:text="Giới tính"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -130,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Weight (kg)"
+                    android:text="Cân nặng (kg)"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -141,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:background="@android:drawable/editbox_background"
-                    android:hint="Enter weight"
+                    android:hint="Nhập cân nặng"
                     android:inputType="numberDecimal"
                     android:padding="12dp"
                     android:textSize="16sp" />
@@ -151,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Height (cm)"
+                    android:text="Chiều cao (cm)"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -162,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:background="@android:drawable/editbox_background"
-                    android:hint="Enter height"
+                    android:hint="Nhập chiều cao"
                     android:inputType="numberDecimal"
                     android:padding="12dp"
                     android:textSize="16sp" />
@@ -172,7 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Type of diabetes"
+                    android:text="Loại tiểu đường"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -188,7 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Family history"
+                    android:text="Tiền sử gia đình"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -197,14 +196,14 @@
                     android:id="@+id/checkFamilyHistory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Have a family history" />
+                    android:text="Có tiền sử gia đình" />
 
                 <!-- Thông tin thêm -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="More information"
+                    android:text="Thông tin thêm"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -215,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:background="@android:drawable/editbox_background"
-                    android:hint="Enter additional information"
+                    android:hint="Nhập thông tin thêm"
                     android:inputType="textMultiLine"
                     android:minLines="2"
                     android:padding="12dp"
@@ -236,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/purple_500"
                 android:padding="12dp"
-                android:text="Update"
+                android:text="Cập nhật"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -245,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red_500"
                 android:padding="12dp"
-                android:text="Logout"
+                android:text="Đăng xuất"
                 android:textColor="@android:color/white"
                 android:layout_marginStart="16dp" />
         </LinearLayout>

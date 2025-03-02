@@ -66,7 +66,7 @@ public class MealDetailFragment extends BaseFragment {
     private void displayMealDetails(JSONObject meal) {
         try {
             String mealName = meal.getString("meal"); // Lấy tên bữa ăn
-            JSONArray items = meal.getJSONArray("items"); // Lấy danh sách món ăn (KHÔNG dùng getString)
+            JSONArray items = meal.getJSONArray("foodItems"); // Lấy danh sách món ăn (KHÔNG dùng getString)
 
             // Hiển thị tiêu đề bữa ăn
             TextView titleView = new TextView(getContext());

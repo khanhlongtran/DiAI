@@ -40,10 +40,20 @@ public class UserManager {
     public User authenticate(String email, String password) {
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                return user; // Trả về người dùng nếu thông tin hợp lệ
+                return user;
             }
         }
         return null; // Trả về null nếu thông tin không chính xác
     }
+
+    public User findUserByEmail(String email) {
+        for (User user : users) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                return user; // Trả về user nếu tìm thấy
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
 }
 

@@ -29,7 +29,7 @@
                 android:id="@+id/greeting_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Breakfast"
+                android:text="Bữa sáng của bạn"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Today, 4 Aug"
+                android:text="Hôm nay, 4 Tháng 8"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Recipes"
+        android:text="Công thức nấu ăn"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="8dp"
-            android:hint="Search Recipes"
+            android:hint="Tìm kiếm công thức"
             android:paddingStart="16dp" />
 
         <ImageView

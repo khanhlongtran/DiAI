@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:text="Welcome to DiAI!"
+        android:text="Chào mừng đến với DiAI!"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Nút Signup with Email -->
+    <!-- Nút Đăng ký bằng Email -->
     <Button
         android:id="@+id/btnSignupWithEmail"
         android:layout_width="match_parent"
@@ -27,6 +27,6 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/purple_500"
         android:padding="12dp"
-        android:text="Signup with Email"
+        android:text="Đăng ký bằng Email"
         android:textColor="@android:color/white" />
 </LinearLayout>

@@ -18,8 +18,8 @@ import com.example.diai_app.Fragments.BaseFragment;
 import com.example.diai_app.R;
 
 public class SignUpFragment2 extends BaseFragment {
-    private EditText etFullName, etAge, etHeight;
-    private Spinner spinnerSex, spinnerWeight;
+    private EditText etFullName, etAge, etHeight, editTextWeight;
+    private Spinner spinnerSex;
     private Button btnNext;
     private ImageView btnBack;
 
@@ -35,12 +35,6 @@ public class SignUpFragment2 extends BaseFragment {
                 R.array.sex_options, android.R.layout.simple_spinner_item);
         sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSex.setAdapter(sexAdapter);
-
-        // Gán danh sách cân nặng (Weight) vào Spinner
-        ArrayAdapter<CharSequence> weightAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.weight_array, android.R.layout.simple_spinner_item);
-        weightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerWeight.setAdapter(weightAdapter);
     }
 
     @Override
@@ -54,7 +48,7 @@ public class SignUpFragment2 extends BaseFragment {
         etAge = view.findViewById(R.id.etAge);
         etHeight = view.findViewById(R.id.etHeight);
         spinnerSex = view.findViewById(R.id.spinnerSex);
-        spinnerWeight = view.findViewById(R.id.spinnerWeight);
+        editTextWeight = view.findViewById(R.id.editTextWeight);
         btnNext = view.findViewById(R.id.btnNext);
         btnBack = view.findViewById(R.id.btnBack2);
     }
@@ -74,8 +68,7 @@ public class SignUpFragment2 extends BaseFragment {
             String age = etAge.getText().toString();
             String height = etHeight.getText().toString();
             String sex = spinnerSex.getSelectedItem().toString();
-            String weight = spinnerWeight.getSelectedItem().toString();
-
+            String weight = editTextWeight.getText().toString().trim();
             // Chuyển sang SignupFragment3
             SignUpFragment3 fragment3 = new SignUpFragment3();
             Bundle bundle = getArguments(); // Lấy dữ liệu cũ từ Fragment1

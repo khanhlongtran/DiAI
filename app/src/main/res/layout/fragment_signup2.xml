@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:padding="12dp"
     android:background="@android:color/white">
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -15,12 +16,12 @@
         android:paddingBottom="16dp"
         android:layout_marginBottom="100dp">
 
-        <!-- Nút Back (ImageView) -->
+        <!-- Nút Quay lại (ImageView) -->
         <ImageView
             android:id="@+id/btnBack2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="@string/back"
+            android:contentDescription="Quay lại"
             android:padding="8dp"
             android:src="@drawable/ic_navigation_back_arrow" />
 
@@ -29,7 +30,7 @@
             android:id="@+id/tvCreateAccount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/create_account"
+            android:text="Tạo tài khoản"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_weight="1"
@@ -39,67 +40,71 @@
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
+
     <!-- Tiêu đề màn hình -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_your_personal_information"
+        android:text="Nhập thông tin cá nhân của bạn"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
         android:gravity="center"
         android:layout_marginBottom="24dp"/>
 
-    <!-- Trường nhập Full Name -->
+    <!-- Trường nhập Họ và Tên -->
     <EditText
         android:id="@+id/etFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:hint="Họ và Tên"
         android:padding="12dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Trường nhập Age -->
+    <!-- Trường nhập Tuổi -->
     <EditText
         android:id="@+id/etAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Age"
+        android:hint="Tuổi"
         android:inputType="number"
         android:padding="12dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Trường nhập Sex (Dropdown bằng Spinner) -->
+    <!-- Trường chọn Giới tính (Dropdown bằng Spinner) -->
     <Spinner
         android:id="@+id/spinnerSex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Trường nhập Height -->
+    <!-- Trường nhập Chiều cao -->
     <EditText
         android:id="@+id/etHeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Height (cm)"
+        android:hint="Chiều cao (cm)"
         android:inputType="numberDecimal"
         android:padding="12dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Trường nhập Weight (Spinner) -->
-    <Spinner
-        android:id="@+id/spinnerWeight"
+    <!-- Trường nhập Cân nặng (EditText) -->
+    <EditText
+        android:id="@+id/editTextWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:inputType="numberDecimal"
+        android:hint="Nhập cân nặng"/>
 
-    <!-- Nút Next -->
+
+    <!-- Nút Tiếp tục -->
     <Button
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:text="Tiếp tục"
         android:backgroundTint="@color/purple_500"
         android:textColor="@android:color/white"
         android:padding="12dp"/>

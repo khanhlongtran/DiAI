@@ -15,6 +15,14 @@
         android:textStyle="bold"
         android:paddingBottom="4dp" />
 
+    <TextView
+        android:id="@+id/exerciseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="4dp" />
+
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
