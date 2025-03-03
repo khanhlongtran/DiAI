@@ -37,7 +37,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Exercise exercise = exerciseList.get(position);
-        holder.bind(exercise.getTitle(), exercise.getVideoEmbedCode());
+        holder.bind(exercise.getTitle(), exercise.getVideoEmbedCode(), exercise.getDate());
+
     }
 
     @Override
@@ -46,13 +47,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
+        TextView titleTextView, dateTextView;
         WebView webView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.exerciseTitle);
             webView = itemView.findViewById(R.id.webView);
+            dateTextView = itemView.findViewById(R.id.exerciseDate); // Thêm TextView hiển thị ngày
 
             WebSettings webSettings = webView.getSettings();
             webView.getSettings().setDomStorageEnabled(true);
@@ -67,9 +69,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
             webView.setWebViewClient(new WebViewClient());
         }
-        public void bind(String title, String videoId) {
-            titleTextView.setText(title);
 
+        public void bind(String title, String videoId, String date) {
+            titleTextView.setText(title);
+            dateTextView.setText("Ngày: " + date); // Hiển thị ngày
             // Tạo iframe để nhúng YouTube video
             String videoHtml = "<html><body style='margin:0;padding:0;'><iframe width='100%' height='100%' " +
                     "src='https://www.youtube.com/embed/" + videoId + "' " +

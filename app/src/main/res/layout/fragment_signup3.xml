@@ -15,12 +15,12 @@
         android:orientation="horizontal"
         android:paddingBottom="16dp">
 
-        <!-- Nút Back (ImageView) -->
+        <!-- Nút Quay lại (ImageView) -->
         <ImageView
             android:id="@+id/btnBack3"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="@string/back"
+            android:contentDescription="Quay lại"
             android:padding="8dp"
             android:src="@drawable/ic_navigation_back_arrow" />
 
@@ -33,11 +33,12 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingEnd="40dp"
-            android:text="@string/create_account"
+            android:text="Tạo tài khoản"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
+
     <!-- Tiêu đề màn hình -->
     <TextView
         android:id="@+id/tvTitle"
@@ -46,18 +47,17 @@
         android:layout_gravity="center"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:text="@string/enter_your_personal_information"
+        android:text="Nhập thông tin cá nhân của bạn"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <!-- Spinner chọn loại tiểu đường -->
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Diabetes Type"
+        android:text="Loại tiểu đường"
         android:textSize="16sp" />
 
     <Spinner
@@ -73,15 +73,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Family History of Diabetes"
+        android:text="Tiền sử gia đình mắc tiểu đường"
         android:textSize="16sp" />
 
-    <!-- Spinner chọn thêm thông tin -->
+    <!-- Spinner chọn mục tiêu -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Goal"
+        android:text="Mục tiêu"
         android:textSize="16sp" />
 
     <Spinner
@@ -91,13 +91,13 @@
         android:layout_marginBottom="32dp"
         android:padding="12dp" />
 
-    <!-- Nút Start -->
+    <!-- Nút Bắt đầu -->
     <Button
         android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/purple_500"
         android:padding="12dp"
-        android:text="@string/start"
+        android:text="Bắt đầu"
         android:textColor="@android:color/white" />
 </LinearLayout>

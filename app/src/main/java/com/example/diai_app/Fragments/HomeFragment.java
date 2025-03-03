@@ -1,5 +1,6 @@
 package com.example.diai_app.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class HomeFragment extends BaseFragment {
-    private TextView tvLatestBloodSugar, tvLatestBloodSugarTime, tvHello;
+    private TextView tvLatestBloodSugar, tvLatestBloodSugarTime, tvHello, tvCurrentWeight, tvCurrentHeight, tvCurrentBMI;
     private EditText etBloodSugar, etNotes;
     private ImageView ivProfile;
     private LineChart chartBloodSugar;
@@ -61,6 +63,9 @@ public class HomeFragment extends BaseFragment {
             Log.d("TAGTAGTAG", "username: " + loggedInUser.getName());
             // Hiển thị lời chào
             tvHello.setText("Hello, " + loggedInUser.getName() + "!");
+            // Cập nhật cân nặng & chiều cao từ object
+            tvCurrentWeight.setText(loggedInUser.getWeight() + " kg");
+            tvCurrentHeight.setText(loggedInUser.getHeight() + " cm");
         }
         seedData();
         updateUI();
@@ -83,6 +88,9 @@ public class HomeFragment extends BaseFragment {
         chartBloodSugar = view.findViewById(R.id.chart_blood_sugar);
         btnAddRecord = view.findViewById(R.id.btn_add_record);
         layoutPreviousRecords = view.findViewById(R.id.layout_previous_records);
+        tvCurrentHeight = view.findViewById(R.id.tv_current_height);
+        tvCurrentWeight = view.findViewById(R.id.tv_current_weight);
+        tvCurrentBMI = view.findViewById(R.id.tv_current_BMI);
     }
 
     @Override
@@ -103,7 +111,104 @@ public class HomeFragment extends BaseFragment {
                 transaction.commit();
             }
         });
+
+        // Thêm sự kiện Long Click để sửa cân nặng và chiều cao
+        tvCurrentWeight.setOnLongClickListener(v -> {
+            showEditDialog(tvCurrentWeight, "Cập nhật cân nặng", "kg");
+            return true; // Trả về true để xử lý long click
+        });
+
+        tvCurrentHeight.setOnLongClickListener(v -> {
+            showEditDialog(tvCurrentHeight, "Cập nhật chiều cao", "cm");
+            return true;
+        });
+
+        tvCurrentBMI.setOnClickListener(v -> {
+            calculateBMI();
+        });
     }
+
+    private void calculateBMI() {
+        SharedPreferences sharedPreferences = requireActivity()
+                .getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userJson = sharedPreferences.getString("loggedInUser", null);
+
+        if (userJson != null) {
+            Gson gson = new Gson();
+            User loggedInUser = gson.fromJson(userJson, User.class);
+
+            double weight = loggedInUser.getWeight(); // Lấy cân nặng
+            double height = loggedInUser.getHeight() / 100.0; // Chuyển cm -> mét
+
+            if (weight > 0 && height > 0) {
+                double bmi = weight / (height * height);
+                String bmiCategory = getBMICategory(bmi);
+
+                tvCurrentBMI.setText(String.format("BMI: %.1f (%s)", bmi, bmiCategory));
+            } else {
+                tvCurrentBMI.setText("BMI: Chưa có dữ liệu");
+            }
+        }
+    }
+
+    // Hàm phân loại BMI
+    private String getBMICategory(double bmi) {
+        if (bmi < 18.5) return "Gầy";
+        if (bmi < 24.9) return "Bình thường";
+        if (bmi < 29.9) return "Thừa cân";
+        return "Béo phì";
+    }
+
+    private void showEditDialog(TextView textView, String title, String unit) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(textView.getContext());
+        builder.setTitle(title);
+
+        // Tạo EditText để nhập giá trị mới
+        final EditText input = new EditText(textView.getContext());
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input.setText(textView.getText().toString().replace(unit, "").trim());
+
+        builder.setView(input);
+
+        // Nút "Lưu"
+        builder.setPositiveButton("Lưu", (dialog, which) -> {
+            String newValue = input.getText().toString().trim();
+            if (!newValue.isEmpty()) {
+                textView.setText(newValue + " " + unit); // Cập nhật UI
+
+                // Lấy dữ liệu từ SharedPreferences
+                SharedPreferences sharedPreferences = textView.getContext()
+                        .getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                String userJson = sharedPreferences.getString("loggedInUser", null);
+
+                if (userJson != null) {
+                    Gson gson = new Gson();
+                    User loggedInUser = gson.fromJson(userJson, User.class);
+
+                    // Cập nhật giá trị vào object
+                    if (textView.getId() == R.id.tv_current_weight) {
+                        loggedInUser.setWeight(Double.parseDouble(newValue));
+                    } else if (textView.getId() == R.id.tv_current_height) {
+                        loggedInUser.setHeight(Double.parseDouble(newValue));
+                    }
+
+                    // Chuyển đối tượng User thành JSON
+                    String updatedUserJson = gson.toJson(loggedInUser);
+
+                    // Lưu lại vào SharedPreferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("loggedInUser", updatedUserJson);
+                    editor.apply();
+                }
+            }
+        });
+
+        // Nút "Hủy"
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
 
     private void addNewRecord() {
         String bloodSugarText = etBloodSugar.getText().toString().trim();

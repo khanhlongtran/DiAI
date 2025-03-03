@@ -3,7 +3,6 @@
     <string-array name="diabetes_types">
         <item>Type 1</item>
         <item>Type 2</item>
-        <item>Other</item>
     </string-array>
 
     <!-- Mảng cân nặng -->
@@ -19,9 +18,8 @@
         <item>90kg</item>
     </string-array>
     <string-array name="sex_options">
-        <item>Female</item>
-        <item>Male</item>
-        <item>Other</item>
+        <item>Nữ</item>
+        <item>Nam</item>
     </string-array>
 
     <!-- Mảng mục tiêu -->
@@ -33,18 +31,20 @@
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <!-- TODO: Xóa hoặc thay đổi văn bản giữ chỗ này -->
+    <string name="hello_blank_fragment">Xin chào, fragment trống</string>
+    <string name="username">Tên người dùng</string>
+    <string name="password">Mật khẩu</string>
     <string name="email">Email</string>
     <string name="nh_p_th_ng_tin_c_nh_n">Nhập thông tin cá nhân</string>
-    <string name="create_account">Create account</string>
-    <string name="back">Back</string>
-    <string name="additional_info">Additional Information</string>
-    <string name="next">Next</string>
+    <string name="create_account">Tạo tài khoản</string>
+    <string name="back">Quay lại</string>
+    <string name="additional_info">Thông tin bổ sung</string>
+    <string name="next">Tiếp theo</string>
     <string name="choosegoal">Chọn mục tiêu</string>
-    <string name="start">Start</string>
-    <string name="enter_your_personal_information">Enter your personal information</string>
-    <string name="edit_account">Edit account</string>
-    <string name="meal_detail">Meal detail</string>
+    <string name="start">Bắt đầu</string>
+    <string name="enter_your_personal_information">Nhập thông tin cá nhân của bạn</string>
+    <string name="edit_account">Chỉnh sửa tài khoản</string>
+    <string name="meal_detail">Chi tiết bữa ăn</string>
+
 </resources>

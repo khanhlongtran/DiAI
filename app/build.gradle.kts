@@ -40,6 +40,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("io.github.chaosleung:pinview:1.4.4")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

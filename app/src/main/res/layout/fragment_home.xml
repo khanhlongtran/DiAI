@@ -1,206 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fillViewport="true"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".HomeActivity">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/ivProfile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_profile"/>
-
-        <!-- Lời chào -->
-        <TextView
-            android:id="@+id/tvHello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hi, fen!"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <!-- Lần đo đường huyết gần nhất -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="12dp"
-        android:background="#E3F2FD"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latest Blood Sugar"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_latest_blood_sugar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="120 mg/dL"
-            android:textColor="#D32F2F"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_latest_blood_sugar_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Today, 08:30 AM"
-            android:textSize="14sp"
-            android:textColor="#757575" />
-    </LinearLayout>
-
-    <!-- Biểu đồ lịch sử đường huyết -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Blood Sugar Trend"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart_blood_sugar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        android:background="#F1F8E9" />
-
-    <!-- Danh sách các lần đo trước đây -->
-    <TextView
-        android:id="@+id/tv_previous_records"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Previous Records"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
-
-    <HorizontalScrollView
-        android:id="@+id/horizontal_scroll_previous_records"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".HomeActivity">
 
         <LinearLayout
-            android:id="@+id/layout_previous_records"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/layout_record_1"
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_profile" />
+
+            <!-- Lời chào -->
+            <TextView
+                android:id="@+id/tvHello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:layout_marginEnd="8dp"
-                android:background="#FFF3E0"
-                android:orientation="vertical">
+                android:text="Hi, fen!"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_record_1_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="115 mg/dL"
-                    android:textSize="16sp"
-                    android:textColor="#D32F2F"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_record_1_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feb 5, 10:00 PM"
-                    android:textSize="14sp"
-                    android:textColor="#757575" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_record_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:layout_marginEnd="8dp"
-                android:background="#FFF3E0"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_record_2_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="130 mg/dL"
-                    android:textSize="16sp"
-                    android:textColor="#D32F2F"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_record_2_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feb 4, 09:30 AM"
-                    android:textSize="14sp"
-                    android:textColor="#757575" />
-            </LinearLayout>
         </LinearLayout>
-    </HorizontalScrollView>
 
-    <!-- Nhập dữ liệu mới -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter New Record"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+        <!-- Lần đo đường huyết gần nhất -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#E3F2FD"
+            android:orientation="vertical"
+            android:padding="12dp">
 
-    <EditText
-        android:id="@+id/et_blood_sugar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter blood sugar level (mg/dL)"
-        android:inputType="numberDecimal"
-        android:padding="5dp"
-        android:background="@android:drawable/editbox_background"
-        android:layout_marginTop="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lượng đường huyết mới nhất"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/et_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter notes (optional)"
-        android:inputType="text"
-        android:padding="5dp"
-        android:background="@android:drawable/editbox_background"
-        android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/tv_latest_blood_sugar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120 mg/dL"
+                android:textColor="#D32F2F"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    <!-- Nút thêm lần đo mới -->
-    <Button
-        android:id="@+id/btn_add_record"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Add New Record"
-        android:backgroundTint="#4CAF50"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_latest_blood_sugar_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today, 08:30 AM"
+                android:textColor="#757575"
+                android:textSize="14sp" />
+
+            <!-- Layout ngang cho cân nặng & chiều cao -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <!-- Cân nặng -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Cân nặng: "
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_current_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="65 kg"
+                    android:textColor="#1976D2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Chiều cao -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Chiều cao: "
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_current_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="170 cm"
+                    android:textColor="#1976D2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <!-- Layout ngang cho cân nặng & chiều cao -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <!-- Cân nặng -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="BMI: "
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_current_BMI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="65 kg"
+                    android:textColor="#1976D2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- Biểu đồ lịch sử đường huyết -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Xu hướng đường huyết"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart_blood_sugar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:background="#F1F8E9" />
+
+        <!-- Danh sách các lần đo trước đây -->
+        <TextView
+            android:id="@+id/tv_previous_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Các bản ghi trước đó"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scroll_previous_records"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/layout_previous_records"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layout_record_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="#FFF3E0"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_record_1_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="115 mg/dL"
+                        android:textColor="#D32F2F"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_record_1_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feb 5, 10:00 PM"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_record_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="#FFF3E0"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_record_2_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="130 mg/dL"
+                        android:textColor="#D32F2F"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_record_2_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feb 4, 09:30 AM"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Nhập dữ liệu mới -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Nhập bản ghi mới"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_blood_sugar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/editbox_background"
+            android:hint="Nhập mức đường huyết (mg/dL)"
+            android:inputType="numberDecimal"
+            android:padding="5dp" />
+
+        <EditText
+            android:id="@+id/et_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/editbox_background"
+            android:hint="Nhập ghi chú (không bắt buộc)"
+            android:inputType="text"
+            android:padding="5dp" />
+
+        <!-- Nút thêm lần đo mới -->
+        <Button
+            android:id="@+id/btn_add_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#4CAF50"
+            android:text="Thêm bản ghi mới"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
 </ScrollView>

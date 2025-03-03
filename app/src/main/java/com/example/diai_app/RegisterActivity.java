@@ -15,7 +15,6 @@ import com.example.diai_app.Fragments.SignUpFragments.WelcomeFragment;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    Button btnSignupWithEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

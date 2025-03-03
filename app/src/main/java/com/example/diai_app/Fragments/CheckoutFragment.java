@@ -1,5 +1,7 @@
 package com.example.diai_app.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,8 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.diai_app.DataModel.User;
 import com.example.diai_app.Manager.CartManager;
 import com.example.diai_app.R;
+import com.google.gson.Gson;
 
 import java.util.Calendar;
 
@@ -34,6 +38,20 @@ public class CheckoutFragment extends BaseFragment {
 
     public CheckoutFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Lấy thông tin user từ SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userJson = sharedPreferences.getString("loggedInUser", null);
+        if (userJson != null) {
+            Gson gson = new Gson();
+            User loggedInUser = gson.fromJson(userJson, User.class);
+            editTextName.setText(loggedInUser.getFullname());
+        }
     }
 
     @Override
@@ -67,7 +85,9 @@ public class CheckoutFragment extends BaseFragment {
 
     @Override
     protected void addOnEventListener() {
+
         btnConfirmOrder.setOnClickListener(v -> {
+
             String name = editTextName.getText().toString().trim();
             String address = editTextAddress.getText().toString().trim();
             String phone = editTextPhone.getText().toString().trim();

@@ -8,7 +8,7 @@
         android:id="@+id/cartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shopping Cart"
+        android:text="Giỏ hàng"
         android:textSize="22sp"
         android:textStyle="bold"
         android:paddingBottom="10dp"/>
@@ -24,7 +24,7 @@
         android:id="@+id/tvTotalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total: $0"
+        android:text="Tổng: $0"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingTop="10dp"
@@ -34,7 +34,7 @@
         android:id="@+id/btnCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Proceed to Checkout"
+        android:text="Tiến hành thanh toán"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/holo_green_dark"/>
 </LinearLayout>

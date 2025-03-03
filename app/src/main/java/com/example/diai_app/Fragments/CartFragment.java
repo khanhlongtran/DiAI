@@ -41,12 +41,14 @@ public class CartFragment extends BaseFragment {
         cartAdapter = new CartAdapter(CartManager.getInstance().getCartItems());
         cartRecyclerView.setAdapter(cartAdapter);
         updateTotalPrice();
+
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_cart;
     }
+
 
     @Override
     protected void bindView(View view) {
@@ -74,6 +76,11 @@ public class CartFragment extends BaseFragment {
             int quantity = entry.getValue();
             totalPrice += product.getPrice() * quantity;
         }
-        tvTotalPrice.setText("Total: $" + totalPrice);
+        if (totalPrice == 0) {
+            tvTotalPrice.setText("Không có gì trong giỏ hàng");
+            requireActivity().getSupportFragmentManager().popBackStack(); // Quay lại CartFragment
+        } else {
+            tvTotalPrice.setText("Total: $" + totalPrice);
+        }
     }
 }

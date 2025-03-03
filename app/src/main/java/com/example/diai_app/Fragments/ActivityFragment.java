@@ -164,7 +164,8 @@ public class ActivityFragment extends BaseFragment {
                             // Extract the video ID from the URL
                             String videoId = extractVideoId(url);
 
-                            exerciseList.add(new Exercise(title, videoId));
+                            // Thêm bài tập với ngày tương ứng
+                            exerciseList.add(new Exercise(title, videoId, i));
                         }
 
                         // Update RecyclerView on UI thread
