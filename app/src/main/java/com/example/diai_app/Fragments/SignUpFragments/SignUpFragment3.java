@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.diai_app.DataModel.User;
@@ -28,7 +29,7 @@ import com.google.gson.Gson;
 public class SignUpFragment3 extends BaseFragment {
     private Spinner spinnerDiabetesType, spinnerAdditionInfo;
     private CheckBox checkFamilyHistory;
-    private Button btnStart;
+    private AppCompatButton btnStart;
     private ImageView btnBack;
 
     public SignUpFragment3() {

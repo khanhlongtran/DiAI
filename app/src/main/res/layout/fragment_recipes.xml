@@ -71,10 +71,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/edittext_bg"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="8dp"
             android:hint="Tìm kiếm công thức"
-            android:paddingStart="16dp" />
+            android:padding="20dp" />
 
         <ImageView
             android:id="@+id/filter_button"

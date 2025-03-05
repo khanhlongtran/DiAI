@@ -2,39 +2,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     android:padding="16dp">
 
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="100dp"
         android:orientation="horizontal"
-        android:paddingBottom="16dp"
-        android:layout_marginBottom="100dp">
+        android:paddingBottom="16dp">
 
         <!-- Nút Back (ImageView) -->
         <ImageView
             android:id="@+id/btnBack5"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:contentDescription="Back"
             android:padding="8dp"
-            android:src="@drawable/ic_navigation_back_arrow" />
+            android:src="@drawable/back" />
 
         <!-- Tiêu đề -->
         <TextView
             android:id="@+id/tvCreateAccount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/meal_detail"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:paddingEnd="40dp"
+            android:text="@string/meal_detail"
             android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
@@ -42,10 +43,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/mealDetailContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
     </ScrollView>
 </LinearLayout>

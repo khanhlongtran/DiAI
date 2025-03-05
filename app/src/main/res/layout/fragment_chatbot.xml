@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -41,11 +42,11 @@
                 android:id="@+id/tv_suggest_food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_suggestion"
+                android:background="@drawable/green_mid_bg"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
                 android:text="Đề xuất món ăn"
-                android:textColor="@color/white"
+                android:textColor="@color/green_msu"
                 android:textSize="12sp" />
 
             <TextView
@@ -53,11 +54,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/bg_suggestion"
+                android:background="@drawable/green_mid_bg"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
                 android:text="Đề xuất thực đơn"
-                android:textColor="@color/white"
+                android:textColor="@color/green_msu"
                 android:textSize="12sp" />
 
             <TextView
@@ -65,11 +66,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/bg_suggestion"
+                android:background="@drawable/green_mid_bg"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
                 android:text="Đề xuất thời gian ăn"
-                android:textColor="@color/white"
+                android:textColor="@color/green_msu"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -79,14 +80,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/apply_btn"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/rounded_button_signin"
                 android:text="Apply"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
 
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_corner"
+                android:background="@drawable/edittext_bg"
                 android:hint="Nhập ở đây"
                 android:padding="12dp" />
 

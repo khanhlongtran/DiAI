@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -8,33 +9,41 @@
         android:id="@+id/cartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Giỏ hàng"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:text="Giỏ hàng"
+        android:textColor="@color/white"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:paddingBottom="10dp"/>
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="false"/>
+        android:nestedScrollingEnabled="false" />
 
     <!-- Thêm TextView hiển thị tổng tiền -->
     <TextView
         android:id="@+id/tvTotalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_button_signin"
+        android:padding="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Tổng: $0"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:textStyle="bold" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCheckout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tiến hành thanh toán"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/holo_green_dark"/>
+        android:background="@drawable/rounded_button_signin"
+        android:padding="12dp"
+        android:text="Tiến hành thanh toán"
+        android:textAllCaps="false" />
 </LinearLayout>

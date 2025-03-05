@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.diai_app.Fragments.BaseFragment;
@@ -17,7 +18,7 @@ import com.example.diai_app.R;
 
 public class SignUpFragment1 extends BaseFragment {
     private EditText etName, etEmail, etPassword;
-    private Button btnNext;
+    private AppCompatButton btnNext;
     private ImageView btnBack;
 
     public SignUpFragment1() {

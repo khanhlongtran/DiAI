@@ -8,13 +8,14 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.diai_app.Fragments.BaseFragment;
 import com.example.diai_app.R;
 
 public class WelcomeFragment extends BaseFragment {
-    Button btnSignupWithEmail;
+    AppCompatButton btnSignupWithEmail;
 
     public WelcomeFragment() {
     }

@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@drawable/gradient_background"
+    android:fillViewport="true"
+    tools:context=".HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".HomeActivity">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="#E3F2FD"
+            android:background="@drawable/light_green_bg_info"
             android:orientation="vertical"
             android:padding="12dp">
 
@@ -91,7 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:text="65 kg"
-                    android:textColor="#1976D2"
+                    android:textColor="#2e9f67
+"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -137,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:text="65 kg"
-                    android:textColor="#1976D2"
+                    android:textColor="@color/red_500"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -149,8 +151,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="Xu hướng đường huyết"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -159,15 +163,17 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="8dp"
-            android:background="#F1F8E9" />
+            android:background="@drawable/light_yellow_bg_chart" />
 
         <!-- Danh sách các lần đo trước đây -->
         <TextView
             android:id="@+id/tv_previous_records"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="Các bản ghi trước đó"
+            android:text="Các bản ghi trước"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -181,14 +187,15 @@
                 android:id="@+id/layout_previous_records"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/layout_record_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="#FFF3E0"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/light_yellow_background_record"
                     android:orientation="vertical"
                     android:padding="12dp">
 
@@ -215,7 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:background="#FFF3E0"
+                    android:background="@drawable/light_yellow_background_record"
                     android:orientation="vertical"
                     android:padding="12dp">
 
@@ -243,38 +250,47 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="Nhập bản ghi mới"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_blood_sugar"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:background="@android:drawable/editbox_background"
+            android:background="@drawable/green_mid_bg"
             android:hint="Nhập mức đường huyết (mg/dL)"
             android:inputType="numberDecimal"
-            android:padding="5dp" />
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/et_notes"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:background="@android:drawable/editbox_background"
+            android:background="@drawable/green_mid_bg"
             android:hint="Nhập ghi chú (không bắt buộc)"
             android:inputType="text"
-            android:padding="5dp" />
+            android:padding="10dp" />
 
         <!-- Nút thêm lần đo mới -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_record"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:backgroundTint="#4CAF50"
+            android:background="@drawable/light_green_background"
+            android:paddingLeft="40dp"
+            android:paddingTop="10dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="10dp"
             android:text="Thêm bản ghi mới"
             android:textColor="@android:color/white"
             android:textSize="16sp" />

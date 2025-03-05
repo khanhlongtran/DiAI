@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +50,7 @@ public class ChatBotFragment extends BaseFragment {
     private TextView welcomeTextView;
     private EditText messageEditText;
     private ImageButton sendButton;
-    private Button applyButton;
+    private AppCompatButton applyButton;
     private List<Message> messageList;
     private MessageAdapter messageAdapter;
     private LinearLayout suggestionsLayout; // Layout chứa các gợi ý
@@ -250,8 +251,9 @@ public class ChatBotFragment extends BaseFragment {
         suggestionsLayout.setVisibility(View.GONE); // Ẩn layout gợi ý
     }
 
+    private List<JSONObject> historyList = new ArrayList<>(); // Lưu lịch sử
+
     private void callAPI(String question) {
-        // Lấy thông tin user từ SharedPreferences
         requireContext();
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String userJson = sharedPreferences.getString("loggedInUser", null);
@@ -262,32 +264,26 @@ public class ChatBotFragment extends BaseFragment {
             user = gson.fromJson(userJson, User.class);
         }
 
-        // Tạo context cá nhân hóa cho AI
-        String userContext = "This is a conversation between a human and an AI assistant. Focus on answering, don't ask questions back";
+        // Context cá nhân hóa
+        String userContext = "This is a conversation between a human and an AI assistant. ";
+        userContext += "Focus on answering, don't ask questions back. ";
 
         if (user != null) {
             userContext += "The user's name is " + user.getFullname() + ". ";
-            userContext += "They are " + user.getAge() + " years old, identify as " + user.getSex() + ", and weigh " + user.getWeight() + " kg with a height of " + user.getHeight() + " cm. ";
-            userContext += "They have " + user.getDiabetesType() + " diabetes and " + (user.isHasFamilyHistory() ? "a family history of diabetes." : "no family history of diabetes.") + " ";
-            userContext += "Additional health information: " + user.getAdditionInfo() + ". ";
-        } else {
-            userContext += "No user details available.";
+            userContext += "They are " + user.getAge() + " years old, identify as " + user.getSex() + ". ";
+            userContext += "They have " + user.getDiabetesType() + " diabetes. ";
         }
 
-        userContext += " The AI is called Patrick, an empathetic assistant providing helpful insights.";
-        // Thêm tin nhắn "Typing..." vào danh sách
-        messageList.add(new Message("Typing... ", Message.SENT_BY_BOT));
+        // Hiển thị "Typing..." khi chờ phản hồi
+        messageList.add(new Message("Typing...", Message.SENT_BY_BOT));
 
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("input", question);
             jsonBody.put("context", userContext);
 
-            JSONArray historyArray = new JSONArray();
-            JSONObject previousMessage = new JSONObject();
-            previousMessage.put("input", "Gợi ý bữa ăn");
-            previousMessage.put("response", "Sáng: Phở bò, Bánh mì trứng\nTrưa: Cơm gà, Canh chua\nTối: Salad cá hồi, Cháo hải sản");
-            historyArray.put(previousMessage);
+            // Lịch sử hội thoại
+            JSONArray historyArray = new JSONArray(historyList);
             jsonBody.put("history", historyArray);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -305,7 +301,7 @@ public class ChatBotFragment extends BaseFragment {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                addResponse("Failed to load response due to " + e.getMessage());
+                addResponse("Failed to load response: " + e.getMessage());
             }
 
             @Override
@@ -314,6 +310,13 @@ public class ChatBotFragment extends BaseFragment {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         String result = jsonObject.getString("response");
+
+                        // Lưu lịch sử hội thoại
+                        JSONObject historyEntry = new JSONObject();
+                        historyEntry.put("input", question);
+                        historyEntry.put("response", result);
+                        historyList.add(historyEntry);
+
                         addResponse(result.trim());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -324,4 +327,80 @@ public class ChatBotFragment extends BaseFragment {
             }
         });
     }
+
+
+//    private void callAPI1111(String question) {
+//        // Lấy thông tin user từ SharedPreferences
+//        requireContext();
+//        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+//        String userJson = sharedPreferences.getString("loggedInUser", null);
+//
+//        User user = null;
+//        if (userJson != null) {
+//            Gson gson = new Gson();
+//            user = gson.fromJson(userJson, User.class);
+//        }
+//
+//        // Tạo context cá nhân hóa cho AI
+//        String userContext = "This is a conversation between a human and an AI assistant. Focus on answering, don't ask questions back";
+//
+//        if (user != null) {
+//            userContext += "The user's name is " + user.getFullname() + ". ";
+//            userContext += "They are " + user.getAge() + " years old, identify as " + user.getSex() + ", and weigh " + user.getWeight() + " kg with a height of " + user.getHeight() + " cm. ";
+//            userContext += "They have " + user.getDiabetesType() + " diabetes and " + (user.isHasFamilyHistory() ? "a family history of diabetes." : "no family history of diabetes.") + " ";
+//            userContext += "Additional health information: " + user.getAdditionInfo() + ". ";
+//        } else {
+//            userContext += "No user details available.";
+//        }
+//
+//        userContext += " The AI is called Patrick, an empathetic assistant providing helpful insights.";
+//        // Thêm tin nhắn "Typing..." vào danh sách
+//        messageList.add(new Message("Typing... ", Message.SENT_BY_BOT));
+//
+//        JSONObject jsonBody = new JSONObject();
+//        try {
+//            jsonBody.put("input", question);
+//            jsonBody.put("context", userContext);
+//
+//            JSONArray historyArray = new JSONArray();
+//            JSONObject previousMessage = new JSONObject();
+//            previousMessage.put("input", "Gợi ý bữa ăn");
+//            previousMessage.put("response", "Sáng: Phở bò, Bánh mì trứng\nTrưa: Cơm gà, Canh chua\nTối: Salad cá hồi, Cháo hải sản");
+//            historyArray.put(previousMessage);
+//            jsonBody.put("history", historyArray);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
+//
+//        Request request = new Request.Builder()
+//                .url("https://api.nlpcloud.io/v1/gpu/finetuned-llama-3-70b/chatbot")
+//                .header("Authorization", "Token 754352d8634ecf66b2dcde7f8f9920561fc58944")
+//                .header("Content-Type", "application/json")
+//                .post(body)
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                addResponse("Failed to load response due to " + e.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response.body().string());
+//                        String result = jsonObject.getString("response");
+//                        addResponse(result.trim());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    addResponse("Failed to load response due to an error.");
+//                }
+//            }
+//        });
+//    }
 }

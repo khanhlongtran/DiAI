@@ -23,7 +23,7 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/bg_bottom_navigation"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,8 +40,8 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:elevation="6dp"
-        app:maxImageSize="56dp"
         android:src="@drawable/ic_chatbot_diai"
+        app:maxImageSize="56dp"
         app:tint="@null"
         tools:ignore="MissingConstraints" />
 

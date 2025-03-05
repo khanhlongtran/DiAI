@@ -1,12 +1,19 @@
 package com.example.diai_app.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +41,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
+        holder.degreeTxt.setText(String.valueOf(position + 1)); // Vị trí bắt đầu từ 1
         holder.mealName.setText(mealList.get(position));
         // Bắt sự kiện Long Click để xóa
         holder.itemView.setOnLongClickListener(v -> {
@@ -68,11 +76,37 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     }
 
     public static class MealViewHolder extends RecyclerView.ViewHolder {
-        TextView mealName;
+        TextView mealName, degreeTxt, scoreTxt;
+        RatingBar ratingBar;
+        boolean isExpanded = false; // Biến trạng thái xem có đang mở rộng hay không
 
+        @SuppressLint("ClickableViewAccessibility")
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             mealName = itemView.findViewById(R.id.meal_name);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            degreeTxt = itemView.findViewById(R.id.degreeTxt);
+            scoreTxt = itemView.findViewById(R.id.scoreTxt);
+            // Xử lý sự kiện click để mở rộng / thu gọn
+            mealName.setOnClickListener(v -> {
+                if (isExpanded) {
+                    mealName.setMaxLines(2); // Thu gọn về 2 dòng
+                    mealName.setEllipsize(TextUtils.TruncateAt.END);
+                } else {
+                    mealName.setMaxLines(Integer.MAX_VALUE); // Hiển thị toàn bộ
+                    mealName.setEllipsize(null);
+                }
+                isExpanded = !isExpanded; // Đảo trạng thái
+            });
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    if (fromUser) {
+                        Toast.makeText(itemView.getContext(), "Bạn đã đánh giá: " + rating + " sao", Toast.LENGTH_SHORT).show();
+                        scoreTxt.setText(String.valueOf(rating)); // Cập nhật điểm vào scoreTxt
+                    }
+                }
+            });
         }
     }
 }

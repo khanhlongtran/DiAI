@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/gradient_background"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp">
@@ -15,18 +15,18 @@
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="Chào mừng đến với DiAI!"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <!-- Nút Đăng ký bằng Email -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignupWithEmail"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/purple_500"
+        android:background="@drawable/rounded_button_signin"
         android:padding="12dp"
         android:text="Đăng ký bằng Email"
-        android:textColor="@android:color/white" />
+        android:textColor="#324104" />
 </LinearLayout>
