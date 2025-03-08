@@ -145,7 +145,7 @@ public class ShopFragment extends BaseFragment {
                 new Category(8, "Thực phẩm bổ sung năng lượng")
         );
 
-// Dữ liệu mẫu (Danh sách sản phẩm)
+// Dữ liệu mẫu (Danh sách sản phẩm)`
         productList = Arrays.asList(
                 new Product(1, "Viên Uống Bổ Gan", "Thực phẩm chức năng", 250, R.drawable.bogan),
                 new Product(2, "Collagen Dạng Nước", "Thực phẩm chức năng", 300, R.drawable.collagen),

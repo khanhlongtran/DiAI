@@ -32,8 +32,41 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = categoryList.get(position);
         holder.categoryTextView.setText(category.getName());
-        holder.categoryImg.setImageResource(R.drawable.cat1);
+
+        // Đặt ảnh theo vị trí
+        int imageResId;
+        switch (position + 1) { // Vì position bắt đầu từ 0
+            case 1:
+                imageResId = R.drawable.cat1;
+                break;
+            case 2:
+                imageResId = R.drawable.cat2;
+                break;
+            case 3:
+                imageResId = R.drawable.cat3;
+                break;
+            case 4:
+                imageResId = R.drawable.cat4;
+                break;
+            case 5:
+                imageResId = R.drawable.cat5;
+                break;
+            case 6:
+                imageResId = R.drawable.cat6;
+                break;
+            case 7:
+                imageResId = R.drawable.cat7;
+                break;
+            case 8:
+                imageResId = R.drawable.cat8;
+                break;
+            default:
+                imageResId = R.drawable.cat1;
+                break;
+        }
+        holder.categoryImg.setImageResource(imageResId);
     }
+
 
     @Override
     public int getItemCount() {

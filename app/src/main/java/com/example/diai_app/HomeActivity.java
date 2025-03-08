@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
             View parentView = (View) fabChatBot.getParent();
             if (parentView != null) {
                 fabChatBot.setX(parentView.getWidth() - fabChatBot.getWidth() - 50); // Cách phải 50px
-                fabChatBot.setY(parentView.getHeight() - fabChatBot.getHeight() - 200); // Cách đáy 200px
+                fabChatBot.setY(parentView.getHeight() - fabChatBot.getHeight() - 250); // Cách đáy 200px
             }
         });
 

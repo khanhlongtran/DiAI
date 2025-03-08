@@ -22,7 +22,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Daily Monitoring"
+                android:text="Theo dõi sức khỏe hàng ngày"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -60,7 +60,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Daily Colories"
+                        android:text="Lượng Calo tiêu thụ"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -93,7 +93,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sleep Time"
+                        android:text="Thời gian ngủ"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -126,7 +126,7 @@
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total Workout"
+                        android:text="Tổng thời gian tập luyện"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -154,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Twist\nExcercise"
+                    android:text="Bài tập \nthể dục"
                     android:textColor="@color/white"
                     android:textSize="24dp"
                     android:textStyle="bold"
@@ -166,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="20 min - Beginner"
+                    android:text="20 phút - Người mới"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="@+id/textView9"
                     app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -184,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Other Workout"
+                    android:text="Các bài tập khác"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -193,7 +193,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See all"
+                    android:text="Xem tất cả"
                     android:textColor="@color/orange" />
             </LinearLayout>
 
@@ -219,7 +219,7 @@
                     android:layout_marginTop="16dp"
                     android:padding="12dp"
                     android:background="@drawable/green_mid_bg"
-                    android:text="Gợi ý bài tập bởi AI" />
+                    android:text="Luyện tập theo gợi ý" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
