@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     ImageView googleBtn;
+    FrameLayout fragmentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +134,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         tvForgotPassword.setOnClickListener(v -> {
+            findViewById(R.id.scrollView2).setVisibility(View.GONE);
+            findViewById(R.id.constraintLayout2).setVisibility(View.GONE);
+            fragmentContainer = findViewById(R.id.fragment_container);
+            fragmentContainer.setVisibility(View.VISIBLE);
             // Mở ForgetPasswordFragment
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new ForgotPasswordFragment()) // fragment_container là ID của View chứa fragment
@@ -207,6 +213,17 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+            findViewById(R.id.scrollView2).setVisibility(View.VISIBLE);
+            findViewById(R.id.constraintLayout2).setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
         }
     }
 }
