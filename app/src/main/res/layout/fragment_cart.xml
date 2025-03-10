@@ -32,7 +32,7 @@
         android:padding="12dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Tổng: $0"
+        android:text="Tổng: 0đ"
         android:textSize="18sp"
         android:textStyle="bold" />
 

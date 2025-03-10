@@ -80,7 +80,7 @@ public class CartFragment extends BaseFragment {
             tvTotalPrice.setText("Không có gì trong giỏ hàng");
             requireActivity().getSupportFragmentManager().popBackStack(); // Quay lại CartFragment
         } else {
-            tvTotalPrice.setText("Total: $" + totalPrice);
+            tvTotalPrice.setText("Total: " + totalPrice + "đ");
         }
     }
 }

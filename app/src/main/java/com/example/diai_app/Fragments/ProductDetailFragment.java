@@ -57,7 +57,7 @@ public class ProductDetailFragment extends BaseFragment {
             detailProductName.setText(product.getName());
             totalPrice = product.getPrice(); // Lấy giá gốc
             updateTotalPrice(); // Cập nhật giá ban đầu
-            detailProductDescription.setText(product.getName() + " description");
+            detailProductDescription.setText(product.getName());
             detailProductImage.setImageResource(product.getImageResId()); // Giả sử dùng resource ID
         }
     }
@@ -113,6 +113,6 @@ public class ProductDetailFragment extends BaseFragment {
     // Hàm tính và cập nhật lại tổng giá
     private void updateTotalPrice() {
         totalPrice = product.getPrice() * quantity;
-        detailProductPrice.setText("$" + totalPrice);
+        detailProductPrice.setText("VND" + totalPrice);
     }
 }
