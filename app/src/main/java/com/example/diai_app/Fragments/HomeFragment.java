@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -47,7 +48,7 @@ public class HomeFragment extends BaseFragment {
     private EditText etBloodSugar, etNotes;
     private ImageView ivProfile;
     private LineChart chartBloodSugar;
-    private Button btnAddRecord;
+    private AppCompatButton btnAddRecord;
     private LinearLayout layoutPreviousRecords;
     private List<BloodSugarRecord> bloodSugarRecords = new ArrayList<>();
 

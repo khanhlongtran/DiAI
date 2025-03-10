@@ -201,16 +201,16 @@ public class CaloriesFragment extends BaseFragment {
                 String mealType = mealTitle.getText().toString();
 
                 // Kiểm tra loại bữa ăn và gán hình ảnh tương ứng
-                if (mealType.equalsIgnoreCase("Breakfast")) {
+                if (mealName.equalsIgnoreCase("Breakfast")) {
                     mealImage.setImageResource(R.drawable.breakfast);
-                } else if (mealType.equalsIgnoreCase("Lunch")) {
+                } else if (mealName.equalsIgnoreCase("Lunch")) {
                     mealImage.setImageResource(R.drawable.lunch);
-                } else if (mealType.equalsIgnoreCase("Dinner")) {
+                } else if (mealName.equalsIgnoreCase("Dinner")) {
                     mealImage.setImageResource(R.drawable.dinner);
                 } else {
                     mealImage.setImageResource(R.drawable.mot); // Hình ảnh mặc định nếu không khớp
                 }
-
+                Log.d("TAGTAGTAG", "displayMeals: " + mealName);
                 mealTitle.setText(mealName);
                 mealCalories.setText(totalCalories + " Kcal");
 

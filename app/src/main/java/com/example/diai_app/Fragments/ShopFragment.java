@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -91,6 +92,8 @@ public class ShopFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         categoryRecyclerView.setLayoutManager(layoutManager);
         productRecyclerView = view.findViewById(R.id.productRecyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
+        productRecyclerView.setLayoutManager(gridLayoutManager);
         seedData();
         setUpAdapterForRecyclerView();
         // Cập nhật số lượng sản phẩm trong giỏ
@@ -142,7 +145,7 @@ public class ShopFragment extends BaseFragment {
                 new Category(8, "Thực phẩm bổ sung năng lượng")
         );
 
-// Dữ liệu mẫu (Danh sách sản phẩm)
+// Dữ liệu mẫu (Danh sách sản phẩm)`
         productList = Arrays.asList(
                 new Product(1, "Viên Uống Bổ Gan", "Thực phẩm chức năng", 250, R.drawable.bogan),
                 new Product(2, "Collagen Dạng Nước", "Thực phẩm chức năng", 300, R.drawable.collagen),

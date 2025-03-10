@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@android:color/white">
+    android:padding="12dp">
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="100dp"
         android:orientation="horizontal"
-        android:paddingBottom="16dp"
-        android:layout_marginBottom="100dp">
+        android:paddingBottom="16dp">
 
         <!-- Nút Quay lại (ImageView) -->
         <ImageView
             android:id="@+id/btnBack2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:contentDescription="Quay lại"
             android:padding="8dp"
-            android:src="@drawable/ic_navigation_back_arrow" />
+            android:src="@drawable/back" />
 
         <!-- Tiêu đề -->
         <TextView
             android:id="@+id/tvCreateAccount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tạo tài khoản"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:paddingEnd="40dp"
+            android:text="Tạo tài khoản"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -46,48 +45,54 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nhập thông tin cá nhân của bạn"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:layout_marginBottom="24dp"/>
+        android:text="Nhập thông tin cá nhân "
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <!-- Trường nhập Họ và Tên -->
     <EditText
         android:id="@+id/etFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_bg"
         android:hint="Họ và Tên"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
+        android:padding="12dp" />
 
     <!-- Trường nhập Tuổi -->
     <EditText
         android:id="@+id/etAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_bg"
         android:hint="Tuổi"
         android:inputType="number"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
+        android:padding="12dp" />
 
     <!-- Trường chọn Giới tính (Dropdown bằng Spinner) -->
     <Spinner
         android:id="@+id/spinnerSex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp" />
 
     <!-- Trường nhập Chiều cao -->
     <EditText
         android:id="@+id/etHeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_bg"
         android:hint="Chiều cao (cm)"
         android:inputType="numberDecimal"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
+        android:padding="12dp" />
 
     <!-- Trường nhập Cân nặng (EditText) -->
     <EditText
@@ -95,17 +100,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="Nhập cân nặng"
         android:inputType="numberDecimal"
-        android:hint="Nhập cân nặng"/>
+        android:padding="10dp" />
 
 
     <!-- Nút Tiếp tục -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_button_signin"
+        android:padding="12dp"
         android:text="Tiếp tục"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"
-        android:padding="12dp"/>
+        android:textColor="#324104" />
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.diai_app.DataModel.Product;
@@ -21,7 +22,7 @@ public class ProductDetailFragment extends BaseFragment {
 
     private TextView detailProductName, detailProductPrice, detailProductDescription;
     private ImageView detailProductImage;
-    private Button btnAddToCart;
+    private AppCompatButton btnAddToCart;
     private Product product;
     Button btnIncrease, btnDecrease;
     TextView txtQuantity;
