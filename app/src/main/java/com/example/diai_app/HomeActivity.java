@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.diai_app.Fragments.ActivityFragment;
 import com.example.diai_app.Fragments.CaloriesFragment;
@@ -20,6 +21,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton fabChatBot;
     BottomNavigationView bottomNavigation;
+    private FragmentManager fm;
+    private Fragment activeFragment;
+    private final Fragment homeFragment = new HomeFragment();
+    private final Fragment caloriesFragment = new CaloriesFragment();
+    private final Fragment chatBotFragment = new ChatBotFragment();
+    private final Fragment activityFragment = new ActivityFragment();
+    private final Fragment shopFragment = new ShopFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,33 +45,64 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Mặc định hiển thị HomeFragment
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
-                .commit();
+        fm = getSupportFragmentManager();
+        // Thêm Fragment vào container nhưng chỉ hiện HomeFragment
+        fm.beginTransaction().add(R.id.fragment_container, shopFragment, "5").hide(shopFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container, activityFragment, "4").hide(activityFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container, chatBotFragment, "3").hide(chatBotFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container, caloriesFragment, "2").hide(caloriesFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container, homeFragment, "1").commit();
+
+        activeFragment = homeFragment;
 
         bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
 
             if (item.getItemId() == R.id.nav_home) {
-                selectedFragment = new HomeFragment();
+                selectedFragment = homeFragment;
             } else if (item.getItemId() == R.id.nav_calories) {
-                selectedFragment = new CaloriesFragment();
+                selectedFragment = caloriesFragment;
             } else if (item.getItemId() == R.id.nav_bot) {
-                selectedFragment = new ChatBotFragment();
+                selectedFragment = chatBotFragment;
             } else if (item.getItemId() == R.id.nav_activity) {
-                selectedFragment = new ActivityFragment();
+                selectedFragment = activityFragment;
             } else if (item.getItemId() == R.id.nav_shop) {
-                selectedFragment = new ShopFragment();
+                selectedFragment = shopFragment;
             }
 
-            if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, selectedFragment)
-                        .commit();
+            if (selectedFragment != null && selectedFragment != activeFragment) {
+                fm.beginTransaction().hide(activeFragment).show(selectedFragment).commit();
+                activeFragment = selectedFragment;
             }
             return true;
         });
+//        // Mặc định hiển thị HomeFragment
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container, new HomeFragment())
+//                .commit();
+//
+//        bottomNavigation.setOnItemSelectedListener(item -> {
+//            Fragment selectedFragment = null;
+//
+//            if (item.getItemId() == R.id.nav_home) {
+//                selectedFragment = new HomeFragment();
+//            } else if (item.getItemId() == R.id.nav_calories) {
+//                selectedFragment = new CaloriesFragment();
+//            } else if (item.getItemId() == R.id.nav_bot) {
+//                selectedFragment = new ChatBotFragment();
+//            } else if (item.getItemId() == R.id.nav_activity) {
+//                selectedFragment = new ActivityFragment();
+//            } else if (item.getItemId() == R.id.nav_shop) {
+//                selectedFragment = new ShopFragment();
+//            }
+//
+//            if (selectedFragment != null) {
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_container, selectedFragment)
+//                        .commit();
+//            }
+//            return true;
+//        });
         // Gán sự kiện kéo thả cho FAB
         enableDraggableFAB();
     }
@@ -108,16 +147,4 @@ public class HomeActivity extends AppCompatActivity {
             bottomNavigation.setSelectedItemId(R.id.nav_bot); // Chuyển tab sang ChatBot
         }
     }
-
-    public static HomeActivity getHomeActivity(Fragment fragment) {
-        if (fragment.getActivity() instanceof HomeActivity) {
-            return (HomeActivity) fragment.getActivity();
-        }
-        return null;
-    }
-
-    public BottomNavigationView getBottomNavigation() {
-        return bottomNavigation;
-    }
-
 }

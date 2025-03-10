@@ -1,5 +1,7 @@
 package com.example.diai_app.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -36,7 +38,10 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,10 +58,16 @@ public class HomeFragment extends BaseFragment {
     private List<BloodSugarRecord> bloodSugarRecords = new ArrayList<>();
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("records", (Serializable) bloodSugarRecords);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Lấy name từ SharedPreferences
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String userJson = sharedPreferences.getString("loggedInUser", null);
         if (userJson != null) {
             Gson gson = new Gson();
@@ -68,8 +79,14 @@ public class HomeFragment extends BaseFragment {
             tvCurrentWeight.setText(loggedInUser.getWeight() + " kg");
             tvCurrentHeight.setText(loggedInUser.getHeight() + " cm");
         }
+        if (savedInstanceState != null) {
+            bloodSugarRecords = (List<BloodSugarRecord>) savedInstanceState.getSerializable("records");
+            updateChart();  // Cập nhật lại biểu đồ
+        }
+        Log.d("HomeFragment", "onViewCreated: bloodSugarRecords " + (bloodSugarRecords.size()));
         seedData();
         updateUI();
+        calculateBMI();
     }
 
     @Override
@@ -124,14 +141,11 @@ public class HomeFragment extends BaseFragment {
             return true;
         });
 
-        tvCurrentBMI.setOnClickListener(v -> {
-            calculateBMI();
-        });
     }
 
     private void calculateBMI() {
         SharedPreferences sharedPreferences = requireActivity()
-                .getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                .getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String userJson = sharedPreferences.getString("loggedInUser", null);
 
         if (userJson != null) {
@@ -145,7 +159,7 @@ public class HomeFragment extends BaseFragment {
                 double bmi = weight / (height * height);
                 String bmiCategory = getBMICategory(bmi);
 
-                tvCurrentBMI.setText(String.format("BMI: %.1f (%s)", bmi, bmiCategory));
+                tvCurrentBMI.setText(String.format(" %.1f (%s)", bmi, bmiCategory));
             } else {
                 tvCurrentBMI.setText("BMI: Chưa có dữ liệu");
             }
@@ -179,7 +193,7 @@ public class HomeFragment extends BaseFragment {
 
                 // Lấy dữ liệu từ SharedPreferences
                 SharedPreferences sharedPreferences = textView.getContext()
-                        .getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                        .getSharedPreferences("UserPrefs", MODE_PRIVATE);
                 String userJson = sharedPreferences.getString("loggedInUser", null);
 
                 if (userJson != null) {
@@ -228,29 +242,35 @@ public class HomeFragment extends BaseFragment {
 
         etBloodSugar.setText("");
         etNotes.setText("");
+        saveBloodSugarRecords(bloodSugarRecords);
     }
 
     private void seedData() {
-        // Lấy SharedPreferences
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
-        boolean isSeeded = sharedPreferences.getBoolean("isDataSeeded", false);
-
-        // Kiểm tra nếu chưa seed thì tiến hành seed data
-        if (!isSeeded) {
-            bloodSugarRecords.add(new BloodSugarRecord(120, "Feb 5, 10:00 PM", "After dinner"));
-            bloodSugarRecords.add(new BloodSugarRecord(130, "Feb 4, 09:30 AM", "Morning test"));
-
-            // Đánh dấu là đã seed
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isDataSeeded", true);
-            editor.apply();
-
-            Log.d("TAGTAGTAG", "Seeding data...");
-        } else {
-            Log.d("TAGTAGTAG", "Data already seeded, skip seeding.");
-        }
+        bloodSugarRecords = loadBloodSugarRecords();
     }
 
+    private void saveBloodSugarRecords(List<BloodSugarRecord> records) {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(records); // Chuyển danh sách thành JSON
+        editor.putString("bloodSugarRecords", json);
+        editor.apply();
+    }
+
+    private List<BloodSugarRecord> loadBloodSugarRecords() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String json = sharedPreferences.getString("bloodSugarRecords", null);
+        Log.d("HomeFragment", "loadBloodSugarRecords: loading " + bloodSugarRecords.size());
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<BloodSugarRecord>>() {
+            }.getType();
+            return gson.fromJson(json, type); // Chuyển JSON về danh sách
+        }
+        return new ArrayList<>(); // Trả về danh sách rỗng nếu không có dữ liệu
+    }
 
     private void updateUI() {
         if (!bloodSugarRecords.isEmpty()) {
@@ -299,14 +319,15 @@ public class HomeFragment extends BaseFragment {
 
     private void updateChart() {
         List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < bloodSugarRecords.size(); i++) {
-            entries.add(new Entry(i, bloodSugarRecords.get(i).getLevel()));
+        for (int i = bloodSugarRecords.size() - 1, j = 0; i >= 0; i--, j++) {
+            entries.add(new Entry(j, bloodSugarRecords.get(i).getLevel()));
         }
         LineDataSet dataSet = new LineDataSet(entries, "Blood Sugar Level");
         dataSet.setColor(Color.RED);
         dataSet.setValueTextSize(12f);
         LineData lineData = new LineData(dataSet);
         chartBloodSugar.setData(lineData);
+        chartBloodSugar.getDescription().setEnabled(false);
         chartBloodSugar.invalidate();
     }
 

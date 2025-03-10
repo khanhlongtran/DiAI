@@ -39,7 +39,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.ViewHol
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.productName.setText(product.getName());
-        holder.productPrice.setText("$" + product.getPrice());
+        holder.productPrice.setText("VND" + product.getPrice());
         holder.productImage.setImageResource(product.getImageResId());
 
         // Khi click vào sản phẩm -> Mở ProductDetailFragment

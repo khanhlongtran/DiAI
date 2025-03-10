@@ -147,33 +147,33 @@ public class ShopFragment extends BaseFragment {
 
 // Dữ liệu mẫu (Danh sách sản phẩm)`
         productList = Arrays.asList(
-                new Product(1, "Viên Uống Bổ Gan", "Thực phẩm chức năng", 250, R.drawable.bogan),
-                new Product(2, "Collagen Dạng Nước", "Thực phẩm chức năng", 300, R.drawable.collagen),
-                new Product(3, "Nhân Sâm Hàn Quốc", "Thực phẩm chức năng", 500, R.drawable.nhansam),
+                new Product(1, "Viên Uống Bổ Gan", "Thực phẩm chức năng", 250000, R.drawable.bogan),
+                new Product(2, "Collagen Dạng Nước", "Thực phẩm chức năng", 300000, R.drawable.collagen),
+                new Product(3, "Nhân Sâm Hàn Quốc", "Thực phẩm chức năng", 500000, R.drawable.nhansam),
 
-                new Product(4, "Vitamin C 500mg", "Vitamin & Khoáng chất", 100, R.drawable.vitamin_c),
-                new Product(5, "Viên Uống Bổ Sung Kẽm", "Vitamin & Khoáng chất", 120, R.drawable.kem),
-                new Product(6, "Viên Uống Canxi D3", "Vitamin & Khoáng chất", 180, R.drawable.canxi),
+                new Product(4, "Vitamin C 500mg", "Vitamin & Khoáng chất", 100000, R.drawable.vitamin_c),
+                new Product(5, "Viên Uống Bổ Sung Kẽm", "Vitamin & Khoáng chất", 120000, R.drawable.kem),
+                new Product(6, "Viên Uống Canxi D3", "Vitamin & Khoáng chất", 180000, R.drawable.canxi),
 
-                new Product(7, "Thuốc Kháng Sinh Amoxicillin", "Thuốc kê đơn", 50, R.drawable.amoxicillin),
-                new Product(8, "Thuốc Hạ Huyết Áp Losartan", "Thuốc kê đơn", 90, R.drawable.losartan),
-                new Product(9, "Thuốc Trị Dạ Dày Omeprazole", "Thuốc kê đơn", 80, R.drawable.omeprazole),
+                new Product(7, "Thuốc Kháng Sinh Amoxicillin", "Thuốc kê đơn", 50000, R.drawable.amoxicillin),
+                new Product(8, "Thuốc Hạ Huyết Áp Losartan", "Thuốc kê đơn", 90000, R.drawable.losartan),
+                new Product(9, "Thuốc Trị Dạ Dày Omeprazole", "Thuốc kê đơn", 80000, R.drawable.omeprazole),
 
-                new Product(10, "Thuốc Cảm Cúm Paracetamol", "Thuốc không kê đơn", 30, R.drawable.paracetamol),
-                new Product(11, "Thuốc Giảm Đau Ibuprofen", "Thuốc không kê đơn", 40, R.drawable.ibuprofen),
-                new Product(12, "Siro Ho Dành Cho Trẻ Em", "Thuốc không kê đơn", 70, R.drawable.siroho),
+                new Product(10, "Thuốc Cảm Cúm Paracetamol", "Thuốc không kê đơn", 30000, R.drawable.paracetamol),
+                new Product(11, "Thuốc Giảm Đau Ibuprofen", "Thuốc không kê đơn", 40000, R.drawable.ibuprofen),
+                new Product(12, "Siro Ho Dành Cho Trẻ Em", "Thuốc không kê đơn", 70000, R.drawable.siroho),
 
-                new Product(13, "Men Tiêu Hóa Dạng Viên", "Dược phẩm hỗ trợ tiêu hóa", 90, R.drawable.mentieudhoa),
-                new Product(14, "Men Vi Sinh Dành Cho Người Lớn", "Dược phẩm hỗ trợ tiêu hóa", 110, R.drawable.menvs),
+                new Product(13, "Men Tiêu Hóa Dạng Viên", "Dược phẩm hỗ trợ tiêu hóa", 90000, R.drawable.mentieudhoa),
+                new Product(14, "Men Vi Sinh Dành Cho Người Lớn", "Dược phẩm hỗ trợ tiêu hóa", 110000, R.drawable.menvs),
 
-                new Product(15, "Viên Uống Bổ Tim Omega-3", "Dược phẩm hỗ trợ tim mạch", 250, R.drawable.omega3),
-                new Product(16, "Viên Uống Hỗ Trợ Huyết Áp", "Dược phẩm hỗ trợ tim mạch", 200, R.drawable.huyetap),
+                new Product(15, "Viên Uống Bổ Tim Omega-3", "Dược phẩm hỗ trợ tim mạch", 250000, R.drawable.omega3),
+                new Product(16, "Viên Uống Hỗ Trợ Huyết Áp", "Dược phẩm hỗ trợ tim mạch", 200000, R.drawable.huyetap),
 
-                new Product(17, "Viên Uống Tăng Sức Đề Kháng", "Sản phẩm tăng cường miễn dịch", 190, R.drawable.dekhong),
-                new Product(18, "Sâm Ngọc Linh Tự Nhiên", "Sản phẩm tăng cường miễn dịch", 800, R.drawable.samngoclinh),
+                new Product(17, "Viên Uống Tăng Sức Đề Kháng", "Sản phẩm tăng cường miễn dịch", 190000, R.drawable.dekhong),
+                new Product(18, "Sâm Ngọc Linh Tự Nhiên", "Sản phẩm tăng cường miễn dịch", 800000, R.drawable.samngoclinh),
 
-                new Product(19, "Nước Uống Tăng Lực Hồng Sâm", "Thực phẩm bổ sung năng lượng", 300, R.drawable.nuoctangluc),
-                new Product(20, "Thanh Năng Lượng Protein Bar", "Thực phẩm bổ sung năng lượng", 150, R.drawable.proteinbar)
+                new Product(19, "Nước Uống Tăng Lực Hồng Sâm", "Thực phẩm bổ sung năng lượng", 300000, R.drawable.nuoctangluc),
+                new Product(20, "Thanh Năng Lượng Protein Bar", "Thực phẩm bổ sung năng lượng", 150000, R.drawable.proteinbar)
         );
 
     }

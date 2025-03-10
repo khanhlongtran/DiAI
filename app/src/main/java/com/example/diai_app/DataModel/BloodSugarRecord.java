@@ -1,6 +1,8 @@
 package com.example.diai_app.DataModel;
 
-public class BloodSugarRecord {
+import java.io.Serializable;
+
+public class BloodSugarRecord implements Serializable {
     private final int level;
     private final String time;
     private final String notes;
