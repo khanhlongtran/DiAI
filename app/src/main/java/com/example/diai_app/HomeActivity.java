@@ -8,12 +8,11 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.diai_app.Fragments.ActivityFragment;
-import com.example.diai_app.Fragments.CaloriesFragment;
-import com.example.diai_app.Fragments.ChatBotFragment;
-import com.example.diai_app.Fragments.HomeFragment;
-import com.example.diai_app.Fragments.SettingsFragment;
-import com.example.diai_app.Fragments.ShopFragment;
+import com.example.diai_app.fragments.ActivityFragment;
+import com.example.diai_app.fragments.CaloriesFragment;
+import com.example.diai_app.fragments.ChatBotFragment;
+import com.example.diai_app.fragments.HomeFragment;
+import com.example.diai_app.fragments.ShopFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

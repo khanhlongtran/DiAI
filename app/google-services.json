@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "69066972686",
+    "project_id": "diai-app-test-integration",
+    "storage_bucket": "diai-app-test-integration.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69066972686:android:b193ab1445d91f99c2665f",
+        "android_client_info": {
+          "package_name": "com.example.diai_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKi6wak0Rr2jlmPsmWjvW3cT9opEC8Z_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

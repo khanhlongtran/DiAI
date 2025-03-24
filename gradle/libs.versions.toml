@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.0"
+gson = "2.8.9"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -7,8 +8,16 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseDatabase = "21.0.0"
+mpandroidchart = "v3.1.0"
+okhttp = "4.10.0"
+picasso = "2.71828"
+pinview = "1.4.4"
+playServicesAuth = "20.7.0"
 
 [libraries]
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -16,7 +25,14 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
+pinview = { module = "io.github.chaosleung:pinview", version.ref = "pinview" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 

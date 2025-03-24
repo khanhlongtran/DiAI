@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DiAI </string>
+    <string name="app_name">DiAI-Beta </string>
     <string-array name="diabetes_types">
         <item>Type 1</item>
         <item>Type 2</item>

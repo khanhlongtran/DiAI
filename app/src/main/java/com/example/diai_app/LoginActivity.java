@@ -1,5 +1,7 @@
 package com.example.diai_app;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,9 +20,12 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.diai_app.DataModel.User;
-import com.example.diai_app.Fragments.ForgotPasswordFragment;
-import com.example.diai_app.Manager.UserManager;
+import com.example.diai_app.dataModels.User;
+import com.example.diai_app.dtos.UserDTO;
+import com.example.diai_app.fragments.ForgotPasswordFragment;
+import com.example.diai_app.manager.FirebaseDatabaseManager;
+import com.example.diai_app.manager.UserManager;
+import com.example.diai_app.settings.DataConverter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,6 +33,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
@@ -37,13 +44,14 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient gsc;
     ImageView googleBtn;
     FrameLayout fragmentContainer;
+    private FirebaseDatabaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-
+        dbManager = FirebaseDatabaseManager.getInstance();
         googleBtn = findViewById(R.id.google_btn);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
@@ -98,30 +106,60 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Kiểm tra thông tin đăng nhập
-                User user = UserManager.getInstance().authenticate(email, password);
-                if (user != null) {
-                    Gson gson = new Gson();
-                    String userJson = gson.toJson(user);
+                // Đọc danh sách users và làm việc trực tiếp với UserDTO
+                dbManager.readListData("users", UserDTO.class, User.class, DataConverter::convertToUserDataModel, new FirebaseDatabaseManager.OnDataReadListener<List<User>>() {
+                    @Override
+                    public void onSuccess(List<User> users) {
+                        User loggedInUser = null;
+                        boolean userFound = false;
+                        Log.d(TAG, "Total users retrieved: " + users.size());
+                        // Tìm user với email khớp
+                        for (User user : users) {
+                            Log.d(TAG, "UserDTO: " + user.toString()); // Debug dữ liệu
+                            String userEmail = user.getEmail();
+                            if (userEmail != null && userEmail.equals(email)) {
+                                userFound = true;
+                                // So sánh password với PasswordHash
+                                String userPasswordHash = user.getPassword();
+                                if (userPasswordHash != null && userPasswordHash.equals(password)) {
+                                    loggedInUser = user;
+                                    // Lưu thông tin người dùng vào SharedPreferences
+                                    Gson gson = new Gson();
+                                    String userJson = gson.toJson(loggedInUser); // Lưu DataModel
+                                    SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("loggedInUser", userJson);
+                                    editor.putBoolean("isLoggedIn", true);
+                                    editor.apply();
 
-                    // Lưu thông tin người dùng vào SharedPreferences
-                    SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("loggedInUser", userJson);
-                    editor.putBoolean("isLoggedIn", true);
-                    editor.apply();
+                                    // Chuyển sang HomeActivity
+                                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                }
+                            } else {
+                                Log.w(TAG, "UserDTO has null email: " + user);
+                            }
+                        }
+                        // Hiển thị lỗi cụ thể
+                        if (!userFound) {
+                            etEmail.setError("Email not found");
+                            etEmail.requestFocus();
+                            shakeEditText(etEmail);
+                        } else {
+                            etPassword.setError("Incorrect password");
+                            etPassword.requestFocus();
+                            shakeEditText(etPassword);
+                        }
+                    }
 
-                    // Nếu thông tin đúng, chuyển sang màn hình chính
-                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    // Nếu sai, hiển thị lỗi cụ thể và hiệu ứng rung
-                    etPassword.setError("Incorrect password");
-                    etPassword.requestFocus();
-                    shakeEditText(etPassword);
-                }
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -133,16 +171,37 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        tvForgotPassword.setOnClickListener(v -> {
-            findViewById(R.id.scrollView2).setVisibility(View.GONE);
-            findViewById(R.id.constraintLayout2).setVisibility(View.GONE);
-            fragmentContainer = findViewById(R.id.fragment_container);
-            fragmentContainer.setVisibility(View.VISIBLE);
-            // Mở ForgetPasswordFragment
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ForgotPasswordFragment()) // fragment_container là ID của View chứa fragment
-                    .addToBackStack(null) // Cho phép quay lại màn trước đó
-                    .commit();
+        tvForgotPassword.setOnClickListener(v ->
+
+        {
+
+            findViewById(R.id.scrollView2).
+
+                    setVisibility(View.GONE);
+
+            findViewById(R.id.constraintLayout2).
+
+                    setVisibility(View.GONE);
+
+            fragmentContainer =
+
+                    findViewById(R.id.fragment_container);
+            fragmentContainer.
+
+                    setVisibility(View.VISIBLE);
+
+// Mở ForgetPasswordFragment
+            getSupportFragmentManager().
+
+                    beginTransaction().
+
+                    replace(R.id.fragment_container, new ForgotPasswordFragment()) // fragment_container là ID của View chứa fragment
+                    .
+
+                    addToBackStack(null) // Cho phép quay lại màn trước đó
+                    .
+
+                    commit();
         });
     }
 
@@ -181,8 +240,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (existingUser == null) {
                         // Nếu chưa có, tạo user mới với giá trị mặc định
-                        User newUser = new User(
-                                personName,                     // name
+                        User newUser = new User(personName,                     // name
                                 "",                             // password (không cần thiết)
                                 personEmail,                    // email
                                 "Unknown",                      // sex (giá trị mặc định)
